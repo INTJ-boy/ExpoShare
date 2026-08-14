@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upload | ExpoShare</title>
+<meta name="description" content="Upload your presentation to ExpoShare and share it with students, researchers and professionals." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/upload.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Upload | ExpoShare" />
+<meta property="og:description" content="Upload your presentation to ExpoShare and share it with students, researchers and professionals." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/upload.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Upload | ExpoShare" />
+<meta name="twitter:description" content="Upload your presentation to ExpoShare and share it with students, researchers and professionals." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" class="is-active" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="es-hidden" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="login.html" id="es-nav-login" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.login">Log in</a>
+        <a href="signup.html" id="es-nav-signup" class="es-btn es-btn--primary es-btn--sm" data-i18n="nav.signup">Sign up</a>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm es-hidden" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container" style="max-width:760px;">
+      <div class="es-page-title">
+        <h1 data-i18n="upload.title">Upload presentation</h1>
+      </div>
+
+      <form id="es-upload-form">
+        <div class="es-field">
+          <label data-i18n="upload.field_title">Title</label>
+          <input class="es-input" id="es-up-title" type="text" required maxlength="140" />
+        </div>
+        <div class="es-field">
+          <label data-i18n="upload.field_description">Description</label>
+          <textarea class="es-textarea" id="es-up-description" maxlength="2000"></textarea>
+        </div>
+
+        <div class="es-flex es-gap-12 es-flex-wrap">
+          <div class="es-field" style="flex:1; min-width:180px;">
+            <label data-i18n="upload.field_field">Field</label>
+            <select class="es-select" id="es-up-field" required></select>
+          </div>
+          <div class="es-field" style="flex:1; min-width:180px;">
+            <label data-i18n="upload.field_discipline">Discipline</label>
+            <select class="es-select" id="es-up-discipline" required disabled></select>
+          </div>
+          <div class="es-field" style="flex:1; min-width:180px;">
+            <label data-i18n="upload.field_subdiscipline">Subdiscipline</label>
+            <select class="es-select" id="es-up-subdiscipline" disabled></select>
+          </div>
+        </div>
+
+        <div class="es-flex es-gap-12 es-flex-wrap">
+          <div class="es-field" style="flex:1; min-width:160px;">
+            <label data-i18n="upload.field_language">Language</label>
+            <select class="es-select" id="es-up-language">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+          <div class="es-field" style="flex:1; min-width:160px;">
+            <label data-i18n="upload.field_slide_count">Slide count</label>
+            <input class="es-input" id="es-up-slides" type="number" min="1" />
+          </div>
+        </div>
+
+        <div class="es-field">
+          <label data-i18n="upload.field_tags">Tags</label>
+          <input class="es-input" id="es-up-tags-input" type="text" data-i18n-placeholder="upload.field_tags_hint" placeholder="Press Enter to add a tag" />
+          <div class="es-tags-input-row" id="es-up-tags-list"></div>
+        </div>
+
+        <div class="es-field">
+          <label data-i18n="upload.field_file">Presentation file</label>
+          <div class="es-dropzone" id="es-up-file-drop">
+            <span class="es-dropzone__label" data-i18n="upload.drop_file">Drag a file here or click to browse</span>
+          </div>
+          <input type="file" id="es-up-file" accept=".pdf,.ppt,.pptx" class="es-hidden" />
+          <div class="es-field__hint" data-i18n="upload.field_file_hint" data-i18n-vars='{"max":"50MB"}'>PDF, PPT or PPTX, up to 50MB</div>
+          <div class="es-progress es-hidden" id="es-up-progress"><div class="es-progress__bar"></div></div>
+        </div>
+
+        <div class="es-field">
+          <label data-i18n="upload.field_cover">Cover image</label>
+          <div class="es-dropzone" id="es-up-cover-drop">
+            <span class="es-dropzone__label" data-i18n="upload.drop_file">Drag a file here or click to browse</span>
+          </div>
+          <input type="file" id="es-up-cover" accept=".jpg,.jpeg,.png,.webp" class="es-hidden" />
+          <div class="es-field__hint" data-i18n="upload.field_cover_hint">JPG, PNG or WEBP (optional)</div>
+          <img id="es-up-cover-preview" class="es-hidden" style="margin-top:12px; border-radius:12px; max-height:200px;" alt="" />
+        </div>
+
+        <div class="es-field">
+          <label data-i18n="upload.attribution_title">Attribution</label>
+          <div class="es-checkbox-row">
+            <input type="checkbox" id="es-up-anonymous" />
+            <label for="es-up-anonymous" style="margin:0;" data-i18n="upload.attribution_anonymous">Submit anonymously</label>
+          </div>
+        </div>
+
+        <button type="submit" class="es-btn es-btn--primary es-btn--block" id="es-up-submit" data-i18n="buttons.upload_presentation">Upload presentation</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container">
+      <div class="es-footer__bottom">
+        <span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script src="assets/upload.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+})();
+</script>
+</body>
+</html>

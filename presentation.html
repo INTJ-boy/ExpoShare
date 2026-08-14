@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Presentation | ExpoShare</title>
+<meta name="description" content="View presentation details, download the file, and explore related work on ExpoShare." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/presentation.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Presentation | ExpoShare" />
+<meta property="og:description" content="View presentation details, download the file, and explore related work on ExpoShare." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/presentation.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Presentation | ExpoShare" />
+<meta name="twitter:description" content="View presentation details, download the file, and explore related work on ExpoShare." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="es-hidden" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="login.html" id="es-nav-login" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.login">Log in</a>
+        <a href="signup.html" id="es-nav-signup" class="es-btn es-btn--primary es-btn--sm" data-i18n="nav.signup">Sign up</a>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm es-hidden" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container" id="es-pres-root" style="max-width:920px;">
+      <div class="es-skeleton" style="height:360px; border-radius:22px;"></div>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container">
+      <div class="es-footer__bottom">
+        <span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+
+  const root = document.getElementById("es-pres-root");
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const sb = window.getSupabaseClient();
+  if (!id || !sb) {
+    root.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p>${window.i18n.t("errors.generic")}</p></div>`;
+    return;
+  }
+
+  const taxonomy = await window.ExpoShare.loadTaxonomy();
+  function label(list, id) {
+    const item = list.find((x) => x.id === id);
+    return item ? window.ExpoShare.taxonomyLabel(item, window.i18n.currentLang()) : id;
+  }
+
+  function escapeHtml(s) {
+    const div = document.createElement("div");
+    div.textContent = s || "";
+    return div.innerHTML;
+  }
+
+  const { data: row, error } = await sb
+    .from("presentations")
+    .select("*, owner:profiles(username, display_name)")
+    .eq("id", id)
+    .single();
+
+  if (error || !row) {
+    root.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p>${window.i18n.t("errors.generic")}</p></div>`;
+    return;
+  }
+
+  // Reflect the actual presentation title in the tab and any social
+  // preview generated from this specific page view.
+  document.title = `${row.title} | ExpoShare`;
+  const ogTitleEl = document.querySelector('meta[property="og:title"]');
+  const twTitleEl = document.querySelector('meta[name="twitter:title"]');
+  if (ogTitleEl) ogTitleEl.setAttribute("content", `${row.title} | ExpoShare`);
+  if (twTitleEl) twTitleEl.setAttribute("content", `${row.title} | ExpoShare`);
+  if (row.description) {
+    const ogDescEl = document.querySelector('meta[property="og:description"]');
+    const twDescEl = document.querySelector('meta[name="twitter:description"]');
+    const shortDesc = row.description.length > 160 ? row.description.slice(0, 157) + "..." : row.description;
+    if (ogDescEl) ogDescEl.setAttribute("content", shortDesc);
+    if (twDescEl) twDescEl.setAttribute("content", shortDesc);
+  }
+
+  const field = taxonomy.fields.find((f) => f.id === row.field_id);
+  const discipline = field && field.disciplines.find((d) => d.id === row.discipline_id);
+
+  const coverUrl = row.cover_path
+    ? sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.covers).getPublicUrl(row.cover_path).data.publicUrl
+    : window.ExpoShare.generateFallbackCover({ title: row.title, field: field ? label(taxonomy.fields, row.field_id) : row.field_id, format: row.format });
+
+  const authorLabel = row.is_anonymous
+    ? window.i18n.t("presentation.anonymous")
+    : window.i18n.t("presentation.by", { author: (row.owner && (row.owner.display_name || row.owner.username)) || "" });
+
+  root.innerHTML = `
+    <div class="es-card__cover" style="border-radius:22px; margin-bottom:24px;">
+      <img src="${coverUrl}" alt="${escapeHtml(row.title)}" style="border-radius:22px;" />
+    </div>
+    <div class="es-card__eyebrow">${escapeHtml(label(taxonomy.fields, row.field_id))}${discipline ? " · " + escapeHtml(label(field.disciplines, row.discipline_id)) : ""}</div>
+    <h1>${escapeHtml(row.title)}</h1>
+    <p class="es-muted">${escapeHtml(authorLabel)}</p>
+    <div class="es-card__meta es-mt-24" style="margin-bottom:20px;">
+      <span class="es-badge">${(row.format || "").toUpperCase()}</span>
+      <span class="es-badge">${row.language ? row.language.toUpperCase() : ""}</span>
+      ${row.slide_count ? `<span class="es-badge">${row.slide_count} ${window.i18n.t("presentation.slides")}</span>` : ""}
+    </div>
+    <p>${escapeHtml(row.description || "")}</p>
+    <div class="es-flex es-gap-8 es-flex-wrap" style="margin:20px 0;">
+      ${(row.tags || []).map((t) => `<span class="es-badge">#${escapeHtml(t)}</span>`).join("")}
+    </div>
+    <div class="es-flex es-gap-12 es-flex-wrap">
+      <button class="es-btn es-btn--primary" id="es-pres-download">${window.i18n.t("presentation.download_file")}</button>
+      <button class="es-btn es-btn--ghost" id="es-pres-report">${window.i18n.t("buttons.report")}</button>
+    </div>
+    <p class="es-field__hint es-mt-24" data-i18n="presentation.no_preview">Live preview isn't available for this format. Download the file to view it.</p>
+  `;
+
+  document.getElementById("es-pres-download").addEventListener("click", async () => {
+    try {
+      const { data, error } = await sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.presentations).createSignedUrl(row.file_path, 60);
+      if (error) throw error;
+      window.open(data.signedUrl, "_blank", "noopener");
+    } catch (err) {
+      window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+    }
+  });
+
+  document.getElementById("es-pres-report").addEventListener("click", async () => {
+    const categories = ["copyright", "incorrect", "spam", "inappropriate", "wrong_category", "misleading", "duplicate", "other"];
+    const optionsHtml = categories.map((c) => `<option value="${c}">${window.i18n.t("reports.category_" + c)}</option>`).join("");
+    const bodyHtml = `
+      <div class="es-field">
+        <label>${window.i18n.t("reports.category")}</label>
+        <select class="es-select" id="es-report-category">${optionsHtml}</select>
+      </div>
+      <div class="es-field">
+        <label>${window.i18n.t("reports.explanation")}</label>
+        <textarea class="es-textarea" id="es-report-explanation"></textarea>
+      </div>
+      <p class="es-field__hint">${window.i18n.t("reports.reporter_hidden")}</p>`;
+    const confirmed = await window.ExpoShare.openModal({
+      title: window.i18n.t("reports.title"),
+      bodyHtml,
+      actions: [
+        { label: window.i18n.t("buttons.cancel"), value: false, variant: "ghost" },
+        { label: window.i18n.t("buttons.submit"), value: true, variant: "primary" }
+      ]
+    });
+    if (!confirmed) return;
+    if (!window.ExpoShareAuth.isLoggedIn()) {
+      window.location.href = "login.html";
+      return;
+    }
+    try {
+      const { error } = await sb.from("reports").insert({
+        presentation_id: row.id,
+        reporter_id: window.ExpoShareAuth.user().id,
+        category: document.getElementById("es-report-category").value,
+        explanation: document.getElementById("es-report-explanation").value.trim() || null
+      });
+      if (error) throw error;
+      window.ExpoShare.toast(window.i18n.t("reports.submit_success"), { type: "success" });
+    } catch (err) {
+      window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+    }
+  });
+})();
+</script>
+</body>
+</html>

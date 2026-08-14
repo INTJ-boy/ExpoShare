@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /profile.html
+Disallow: /update-password.html
+
+# Once this is deployed, replace YOUR-USERNAME/YOUR-REPO below and
+# uncomment to point crawlers at a sitemap:
+# Sitemap: https://YOUR-USERNAME.github.io/YOUR-REPO/sitemap.xml

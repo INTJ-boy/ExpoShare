@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile | ExpoShare</title>
+<meta name="description" content="Manage your ExpoShare profile and submissions." />
+<meta name="theme-color" content="#020202" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/profile.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Profile | ExpoShare" />
+<meta property="og:description" content="Manage your ExpoShare profile and submissions." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/profile.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Profile | ExpoShare" />
+<meta name="twitter:description" content="Manage your ExpoShare profile and submissions." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="is-active" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container" style="max-width:720px;">
+      <div class="es-page-title"><h1 data-i18n="profile.title">Profile</h1></div>
+
+      <form id="es-profile-form" class="es-card" style="padding:26px; margin-bottom:32px;">
+        <div class="es-flex es-gap-12" style="align-items:center; margin-bottom:20px;">
+          <img id="es-profile-avatar-preview" class="es-avatar" alt="" src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23080808%22/></svg>" />
+          <div>
+            <label class="es-btn es-btn--ghost es-btn--sm" for="es-profile-avatar-input" style="cursor:pointer;" data-i18n="profile.avatar">Profile picture</label>
+            <input type="file" id="es-profile-avatar-input" accept="image/*" class="es-hidden" />
+          </div>
+        </div>
+        <div class="es-field"><label data-i18n="profile.username">Username</label><input class="es-input" id="es-profile-username" type="text" /></div>
+        <div class="es-field"><label data-i18n="profile.display_name">Display name</label><input class="es-input" id="es-profile-display_name" type="text" /></div>
+        <div class="es-field"><label data-i18n="profile.bio">Bio</label><textarea class="es-textarea" id="es-profile-bio"></textarea></div>
+        <div class="es-field"><label data-i18n="profile.institution">Institution</label><input class="es-input" id="es-profile-institution" type="text" /></div>
+        <div class="es-flex es-gap-12 es-flex-wrap">
+          <div class="es-field" style="flex:1; min-width:160px;"><label data-i18n="profile.country">Country</label><input class="es-input" id="es-profile-country" type="text" /></div>
+          <div class="es-field" style="flex:1; min-width:160px;"><label data-i18n="profile.website">Website</label><input class="es-input" id="es-profile-website" type="url" /></div>
+          <div class="es-field" style="flex:1; min-width:160px;"><label data-i18n="profile.linkedin">LinkedIn</label><input class="es-input" id="es-profile-linkedin" type="url" /></div>
+        </div>
+        <div class="es-field">
+          <label data-i18n="profile.preferred_language">Preferred language</label>
+          <select class="es-select" id="es-profile-preferred_language">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+        <button type="submit" class="es-btn es-btn--primary" id="es-profile-save" data-i18n="buttons.save">Save</button>
+      </form>
+
+      <div class="es-section__head"><h2 data-i18n="profile.approved_presentations">Approved presentations</h2></div>
+      <div id="es-profile-presentations"></div>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container">
+      <div class="es-footer__bottom"><span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span></div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script src="assets/profile.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+})();
+</script>
+</body>
+</html>

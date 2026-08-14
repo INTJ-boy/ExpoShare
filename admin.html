@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin | ExpoShare</title>
+<meta name="description" content="ExpoShare moderation panel." />
+<meta name="theme-color" content="#020202" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/admin.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Admin | ExpoShare" />
+<meta property="og:description" content="ExpoShare moderation panel." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/admin.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Admin | ExpoShare" />
+<meta name="twitter:description" content="ExpoShare moderation panel." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="profile.html" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" class="is-active" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container" id="es-admin-root">
+      <div class="es-page-title"><h1 data-i18n="admin.title">Admin panel</h1></div>
+
+      <div class="es-tabs">
+        <div class="es-tab is-active" id="es-admin-tab-queue" data-i18n="admin.queue">Submission queue</div>
+        <div class="es-tab" id="es-admin-tab-reports" data-i18n="admin.reports_tab">Reports</div>
+      </div>
+
+      <div class="es-filters-bar">
+        <input class="es-input" id="es-admin-search" type="text" style="max-width:260px;" data-i18n-placeholder="admin.search_submissions" placeholder="Search submissions..." />
+        <select class="es-select" id="es-admin-status-filter">
+          <option value="" data-i18n="admin.all_statuses">All statuses</option>
+          <option value="pending" data-i18n="admin.status_pending">Pending</option>
+          <option value="changes_requested" data-i18n="admin.status_changes_requested">Changes requested</option>
+          <option value="approved" data-i18n="admin.status_approved">Approved</option>
+          <option value="rejected" data-i18n="admin.status_rejected">Rejected</option>
+          <option value="hidden" data-i18n="admin.status_hidden">Hidden</option>
+        </select>
+      </div>
+
+      <div id="es-admin-queue"></div>
+      <div id="es-admin-reports" class="es-hidden"></div>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container"><div class="es-footer__bottom"><span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span></div></div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script src="assets/admin.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+})();
+</script>
+</body>
+</html>

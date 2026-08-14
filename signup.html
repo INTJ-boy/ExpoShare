@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign up | ExpoShare</title>
+<meta name="description" content="Create a free ExpoShare account to upload and share educational presentations." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/signup.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Sign up | ExpoShare" />
+<meta property="og:description" content="Create a free ExpoShare account to upload and share educational presentations." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/signup.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Sign up | ExpoShare" />
+<meta name="twitter:description" content="Create a free ExpoShare account to upload and share educational presentations." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <div class="es-header__spacer"></div>
+      <div class="es-lang-switch" id="es-lang-switch">
+        <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+        <div class="es-lang-switch__menu">
+          <button data-lang="en">English</button>
+          <button data-lang="fr">Français</button>
+          <button data-lang="ar">العربية</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="es-main">
+    <div class="es-container">
+      <div class="es-auth">
+        <h1 data-i18n="auth.signup_title">Create your account</h1>
+        <form id="es-signup-form">
+          <div class="es-field">
+            <label data-i18n="auth.email">Email</label>
+            <input class="es-input" id="es-signup-email" type="email" required />
+          </div>
+          <div class="es-field">
+            <label data-i18n="auth.password">Password</label>
+            <input class="es-input" id="es-signup-password" type="password" required minlength="8" />
+            <div class="es-field__hint" id="es-signup-strength"></div>
+          </div>
+          <div class="es-field">
+            <label data-i18n="auth.confirm_password">Confirm password</label>
+            <input class="es-input" id="es-signup-confirm" type="password" required minlength="8" />
+          </div>
+          <button type="submit" class="es-btn es-btn--primary es-btn--block" id="es-signup-submit" data-i18n="auth.create_account">Create account</button>
+        </form>
+        <div class="es-auth__foot">
+          <span data-i18n="auth.have_account">Already have an account?</span>
+          <a href="login.html" data-i18n="nav.login" style="color:var(--candy);">Log in</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.runLoadingSequence();
+
+  const pwd = document.getElementById("es-signup-password");
+  const strength = document.getElementById("es-signup-strength");
+  pwd.addEventListener("input", () => {
+    const v = pwd.value;
+    let score = 0;
+    if (v.length >= 8) score++;
+    if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+    if (/\d/.test(v)) score++;
+    if (/[^A-Za-z0-9]/.test(v)) score++;
+    const key = score <= 1 ? "auth.password_strength_weak" : score <= 2 ? "auth.password_strength_medium" : "auth.password_strength_strong";
+    strength.textContent = window.i18n.t(key);
+  });
+
+  document.getElementById("es-signup-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("es-signup-submit");
+    const password = document.getElementById("es-signup-password").value;
+    const confirm = document.getElementById("es-signup-confirm").value;
+    if (password !== confirm) {
+      window.ExpoShare.toast(window.i18n.t("errors.passwords_dont_match"), { type: "error" });
+      return;
+    }
+    if (password.length < 8) {
+      window.ExpoShare.toast(window.i18n.t("errors.password_too_short"), { type: "error" });
+      return;
+    }
+    window.ExpoShare.setButtonLoading(btn, true);
+    try {
+      await window.ExpoShareAuth.signUp(document.getElementById("es-signup-email").value.trim(), password);
+      window.ExpoShare.toast(window.i18n.t("success.saved"), { type: "success" });
+      window.location.href = "index.html";
+    } catch (err) {
+      window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+      window.ExpoShare.setButtonLoading(btn, false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

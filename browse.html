@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Browse | ExpoShare</title>
+<meta name="description" content="Browse approved presentations by field, discipline, language and format on ExpoShare." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/browse.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Browse | ExpoShare" />
+<meta property="og:description" content="Browse approved presentations by field, discipline, language and format on ExpoShare." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/browse.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Browse | ExpoShare" />
+<meta name="twitter:description" content="Browse approved presentations by field, discipline, language and format on ExpoShare." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" class="is-active" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="es-hidden" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-search" id="es-search-wrap">
+          <button class="es-search__toggle" id="es-search-toggle" data-i18n-aria-label="a11y.toggle_search" aria-label="Search">⌕</button>
+          <input class="es-search__input" id="es-search-input" type="text" data-i18n-placeholder="search.placeholder" placeholder="Search presentations..." />
+          <span class="es-search__kbd">⌘K</span>
+        </div>
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="login.html" id="es-nav-login" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.login">Log in</a>
+        <a href="signup.html" id="es-nav-signup" class="es-btn es-btn--primary es-btn--sm" data-i18n="nav.signup">Sign up</a>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm es-hidden" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container">
+      <div class="es-page-title">
+        <h1 data-i18n="nav.browse">Browse</h1>
+      </div>
+
+      <div class="es-filters-bar">
+        <select class="es-select" id="es-filter-field"></select>
+        <select class="es-select" id="es-filter-discipline" disabled></select>
+        <select class="es-select" id="es-filter-subdiscipline" disabled></select>
+        <select class="es-select" id="es-filter-language">
+          <option value="" data-i18n="filters.all_languages">All languages</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+        </select>
+        <select class="es-select" id="es-filter-format">
+          <option value="" data-i18n="filters.all_formats">All formats</option>
+          <option value="pdf">PDF</option>
+          <option value="ppt">PPT</option>
+          <option value="pptx">PPTX</option>
+        </select>
+        <select class="es-select" id="es-filter-sort">
+          <option value="newest" data-i18n="filters.sort_newest">Newest</option>
+          <option value="oldest" data-i18n="filters.sort_oldest">Oldest</option>
+          <option value="title" data-i18n="filters.sort_title">Title</option>
+        </select>
+        <button class="es-btn es-btn--ghost es-btn--sm" id="es-filter-clear" data-i18n="search.clear_filters">Clear filters</button>
+      </div>
+
+      <div class="es-flex" style="justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <span class="es-muted" id="es-browse-count"></span>
+      </div>
+
+      <div class="es-grid" id="es-browse-grid"></div>
+      <div class="es-empty es-hidden" id="es-browse-empty">
+        <div class="es-empty__mascot">🦑</div>
+        <p data-i18n="search.no_results">No presentations match your search.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container">
+      <div class="es-footer__bottom">
+        <span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script src="assets/browse.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get("q");
+  if (q) document.getElementById("es-search-input").value = q;
+})();
+</script>
+</body>
+</html>

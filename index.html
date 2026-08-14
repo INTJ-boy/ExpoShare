@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ExpoShare | Share knowledge. Discover work.</title>
+<meta name="description" content="ExpoShare is a community library of student and professional presentations, organized by field and discipline. Browse, upload, and discover educational work." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/index.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="ExpoShare | Share knowledge. Discover work." />
+<meta property="og:description" content="ExpoShare is a community library of student and professional presentations, organized by field and discipline. Browse, upload, and discover educational work." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/index.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ExpoShare | Share knowledge. Discover work." />
+<meta name="twitter:description" content="ExpoShare is a community library of student and professional presentations, organized by field and discipline. Browse, upload, and discover educational work." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" class="is-active" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="es-hidden" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-search" id="es-search-wrap">
+          <button class="es-search__toggle" id="es-search-toggle" data-i18n-aria-label="a11y.toggle_search" aria-label="Search">⌕</button>
+          <input class="es-search__input" id="es-search-input" type="text" data-i18n-placeholder="search.placeholder" placeholder="Search presentations..." />
+          <span class="es-search__kbd">⌘K</span>
+        </div>
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" data-i18n-aria-label="a11y.language_selector" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="login.html" id="es-nav-login" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.login">Log in</a>
+        <a href="signup.html" id="es-nav-signup" class="es-btn es-btn--primary es-btn--sm" data-i18n="nav.signup">Sign up</a>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm es-hidden" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container">
+
+      <section class="es-hero">
+        <div class="es-hero__mascot">🦑</div>
+        <h1 class="es-hero__title"><span data-i18n="home.hero_title">Share knowledge. Discover work.</span></h1>
+        <p class="es-hero__subtitle" data-i18n="home.hero_subtitle">A community library of student and professional presentations, organized by field and discipline.</p>
+        <div class="es-hero__actions">
+          <a href="browse.html" class="es-btn es-btn--primary" data-i18n="home.explore_cta">Explore presentations</a>
+          <a href="upload.html" class="es-btn es-btn--ghost" data-i18n="home.submit_cta">Submit a presentation</a>
+        </div>
+
+        <div class="es-stats">
+          <div class="es-stat"><div class="es-stat__value" id="es-stat-presentations">0</div><div class="es-stat__label" data-i18n="home.stat_presentations">Approved presentations</div></div>
+          <div class="es-stat"><div class="es-stat__value" id="es-stat-fields">0</div><div class="es-stat__label" data-i18n="home.stat_fields">Fields</div></div>
+          <div class="es-stat"><div class="es-stat__value" id="es-stat-disciplines">0</div><div class="es-stat__label" data-i18n="home.stat_disciplines">Disciplines</div></div>
+          <div class="es-stat"><div class="es-stat__value" id="es-stat-contributors">0</div><div class="es-stat__label" data-i18n="home.stat_contributors">Contributors</div></div>
+        </div>
+      </section>
+
+      <section class="es-section">
+        <div class="es-section__head"><h2 data-i18n="home.featured_title">Featured presentations</h2></div>
+        <div class="es-grid" id="es-home-featured"></div>
+      </section>
+
+      <section class="es-section">
+        <div class="es-section__head"><h2 data-i18n="home.recent_title">Recently approved</h2></div>
+        <div class="es-grid" id="es-home-recent"></div>
+      </section>
+
+      <section class="es-section">
+        <div class="es-section__head"><h2 data-i18n="home.how_it_works_title">How it works</h2></div>
+        <div class="es-grid">
+          <div class="es-card"><div class="es-card__body">
+            <div class="es-card__eyebrow">01</div>
+            <h3 class="es-card__title" data-i18n="home.how_it_works_1_title">Upload</h3>
+            <p data-i18n="home.how_it_works_1_text">Submit your presentation with title, description and taxonomy.</p>
+          </div></div>
+          <div class="es-card"><div class="es-card__body">
+            <div class="es-card__eyebrow">02</div>
+            <h3 class="es-card__title" data-i18n="home.how_it_works_2_title">Review</h3>
+            <p data-i18n="home.how_it_works_2_text">Our team reviews the submission for quality and correct categorization.</p>
+          </div></div>
+          <div class="es-card"><div class="es-card__body">
+            <div class="es-card__eyebrow">03</div>
+            <h3 class="es-card__title" data-i18n="home.how_it_works_3_title">Publish</h3>
+            <p data-i18n="home.how_it_works_3_text">Approved presentations become searchable in the public library.</p>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="es-section es-text-center">
+        <h2 data-i18n="home.connect_title">Follow / Connect</h2>
+        <div class="es-socials es-flex" style="justify-content:center;" id="es-home-socials"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container">
+      <div class="es-footer__grid">
+        <div>
+          <div class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></div>
+        </div>
+        <div>
+          <h4 data-i18n="footer.navigation">Navigation</h4>
+          <ul>
+            <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+            <li><a href="browse.html" data-i18n="nav.browse">Browse</a></li>
+            <li><a href="upload.html" data-i18n="nav.upload">Upload</a></li>
+            <li><a href="templates.html" data-i18n="nav.templates">Templates</a></li>
+            <li><a href="about.html" data-i18n="nav.about">About</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-i18n="footer.legal">Legal</h4>
+          <ul>
+            <li><a href="about.html#privacy" data-i18n="footer.privacy">Privacy</a></li>
+            <li><a href="about.html#terms" data-i18n="footer.terms">Terms</a></li>
+            <li><a href="about.html#copyright" data-i18n="footer.copyright">Copyright</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="es-footer__bottom">
+        <span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span>
+        <div class="es-socials" id="es-footer-socials"></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.initExpandingSearch({
+    onSearch: (val) => { if (val) window.location.href = `browse.html?q=${encodeURIComponent(val)}`; }
+  });
+  window.ExpoShare.runLoadingSequence();
+
+  // Socials
+  const socials = await window.ExpoShare.loadSocials();
+  function renderSocials(container) {
+    if (!container) return;
+    container.innerHTML = "";
+    Object.values(socials).filter(s => s.enabled).forEach(s => {
+      const a = document.createElement("a");
+      a.href = s.url; a.target = "_blank"; a.rel = "noopener noreferrer"; a.title = s.label; a.setAttribute("aria-label", s.label);
+      a.innerHTML = window.ExpoShare.socialIcon(s.icon);
+      container.appendChild(a);
+    });
+  }
+  renderSocials(document.getElementById("es-home-socials"));
+  renderSocials(document.getElementById("es-footer-socials"));
+
+  // Stats + featured/recent (best-effort; requires a configured Supabase project)
+  const sb = window.getSupabaseClient();
+  if (sb) {
+    try {
+      const { count } = await sb.from("presentations").select("*", { count: "exact", head: true }).eq("status", "approved");
+      document.getElementById("es-stat-presentations").textContent = count ?? "0";
+    } catch (e) { /* not configured yet */ }
+    const taxonomy = await window.ExpoShare.loadTaxonomy();
+    document.getElementById("es-stat-fields").textContent = taxonomy.fields.length;
+    document.getElementById("es-stat-disciplines").textContent = taxonomy.fields.reduce((a, f) => a + f.disciplines.length, 0);
+
+    async function fillGrid(elId, order) {
+      const el = document.getElementById(elId);
+      try {
+        const { data } = await sb.from("presentations")
+          .select("id, title, field_id, format, cover_path, is_anonymous, owner:profiles(username, display_name)")
+          .eq("status", "approved").order("created_at", { ascending: order === "oldest" }).limit(4);
+        if (!data || !data.length) { el.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p data-i18n="empty.library"></p></div>`; window.i18n.apply(el); return; }
+        el.innerHTML = "";
+        data.forEach(row => {
+          const a = document.createElement("a");
+          a.href = `presentation.html?id=${row.id}`;
+          a.className = "es-card";
+          const cover = row.cover_path
+            ? sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.covers).getPublicUrl(row.cover_path).data.publicUrl
+            : window.ExpoShare.generateFallbackCover({ title: row.title, field: row.field_id, format: row.format });
+          a.innerHTML = `<div class="es-card__cover"><img src="${cover}" alt="${row.title}"/></div><div class="es-card__body"><div class="es-card__title">${row.title}</div></div>`;
+          el.appendChild(a);
+        });
+      } catch (e) { el.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p data-i18n="empty.library"></p></div>`; window.i18n.apply(el); }
+    }
+    fillGrid("es-home-featured", "newest");
+    fillGrid("es-home-recent", "newest");
+  }
+})();
+</script>
+</body>
+</html>

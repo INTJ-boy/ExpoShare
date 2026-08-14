@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact | ExpoShare</title>
+<meta name="description" content="Get in touch with the ExpoShare team for support, copyright concerns or general inquiries." />
+<meta name="theme-color" content="#020202" />
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/contact.html" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ExpoShare" />
+<meta property="og:title" content="Contact | ExpoShare" />
+<meta property="og:description" content="Get in touch with the ExpoShare team for support, copyright concerns or general inquiries." />
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/contact.html" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Contact | ExpoShare" />
+<meta name="twitter:description" content="Get in touch with the ExpoShare team for support, copyright concerns or general inquiries." />
+<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/icons/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="es-page">
+  <header class="es-header">
+    <div class="es-header__inner">
+      <a href="index.html" class="es-brand"><span class="es-brand__mascot">🦑</span><span>ExpoShare</span></a>
+      <nav class="es-nav-menu" id="es-nav-menu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="browse.html" data-i18n="nav.browse">Browse</a>
+        <a href="upload.html" id="es-nav-upload" data-i18n="nav.upload">Upload</a>
+        <a href="templates.html" data-i18n="nav.templates">Templates</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" class="is-active" data-i18n="nav.contact">Contact</a>
+        <a href="profile.html" id="es-nav-profile" class="es-hidden" data-i18n="nav.profile">Profile</a>
+        <a href="admin.html" id="es-nav-admin" class="es-hidden" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="es-header__spacer"></div>
+      <div class="es-header__actions">
+        <div class="es-lang-switch" id="es-lang-switch">
+          <button class="es-lang-switch__btn" id="es-lang-btn" aria-label="Language">🌐 <span id="es-lang-current">EN</span></button>
+          <div class="es-lang-switch__menu">
+            <button data-lang="en">English</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <a href="login.html" id="es-nav-login" class="es-btn es-btn--ghost es-btn--sm" data-i18n="nav.login">Log in</a>
+        <a href="signup.html" id="es-nav-signup" class="es-btn es-btn--primary es-btn--sm" data-i18n="nav.signup">Sign up</a>
+        <a href="#" id="es-nav-logout" class="es-btn es-btn--ghost es-btn--sm es-hidden" data-i18n="nav.logout">Log out</a>
+        <button class="es-nav-toggle" id="es-nav-toggle" aria-expanded="false" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="es-main">
+    <div class="es-container" style="max-width:560px;">
+      <div class="es-page-title">
+        <div class="es-hero__mascot">🦑</div>
+        <h1 data-i18n="contact.title">Contact</h1>
+        <p data-i18n="contact.intro">Questions, copyright concerns or platform inquiries? Send us a message.</p>
+      </div>
+
+      <form id="es-contact-form" class="es-card" style="padding:26px;">
+        <div class="es-field">
+          <label data-i18n="contact.form_name">Name</label>
+          <input class="es-input" id="es-contact-name" type="text" required maxlength="120" />
+        </div>
+        <div class="es-field">
+          <label data-i18n="contact.form_email">Your email</label>
+          <input class="es-input" id="es-contact-email" type="email" required />
+        </div>
+        <div class="es-field">
+          <label data-i18n="contact.form_category">Reason</label>
+          <select class="es-select" id="es-contact-category">
+            <option value="general" data-i18n="contact.form_category_general">General inquiry</option>
+            <option value="copyright" data-i18n="contact.form_category_copyright">Copyright concern</option>
+            <option value="support" data-i18n="contact.form_category_support">Support</option>
+            <option value="other" data-i18n="contact.form_category_other">Other</option>
+          </select>
+        </div>
+        <div class="es-field">
+          <label data-i18n="contact.form_message">Message</label>
+          <textarea class="es-textarea" id="es-contact-message" required maxlength="2000"></textarea>
+        </div>
+        <button type="submit" class="es-btn es-btn--primary es-btn--block" id="es-contact-submit" data-i18n="contact.form_submit">Send message</button>
+      </form>
+
+      <div class="es-text-center es-mt-24">
+        <p class="es-muted" style="margin-bottom:10px;" data-i18n="contact.prefer_email">Prefer email instead?</p>
+        <button type="button" class="es-btn es-btn--ghost es-btn--sm" id="es-contact-reveal" data-i18n="contact.reveal_email">Show email address</button>
+        <div id="es-contact-email-wrap" class="es-hidden es-mt-24">
+          <a href="mailto:rabahallaa666@gmail.com" class="es-btn es-btn--ghost es-btn--sm" id="es-contact-email-link">rabahallaa666@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="es-footer">
+    <div class="es-container"><div class="es-footer__bottom"><span><span data-i18n="footer.credit">ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.</span></span></div></div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/lang-switch.js"></script>
+<script>
+(async function () {
+  await window.i18n.init();
+  await window.ExpoShareAuth.init();
+  window.ExpoShare.markReady();
+  window.ExpoShare.initMobileNav();
+  window.ExpoShare.runLoadingSequence();
+
+  // Pre-fill name/email for a logged-in visitor as a convenience.
+  const profile = window.ExpoShareAuth.profile();
+  const user = window.ExpoShareAuth.user();
+  if (profile && profile.display_name) document.getElementById("es-contact-name").value = profile.display_name;
+  if (user && user.email) document.getElementById("es-contact-email").value = user.email;
+
+  document.getElementById("es-contact-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("es-contact-submit");
+    const sb = window.getSupabaseClient();
+    window.ExpoShare.setButtonLoading(btn, true);
+    try {
+      const { error } = await sb.from("contact_messages").insert({
+        name: document.getElementById("es-contact-name").value.trim(),
+        email: document.getElementById("es-contact-email").value.trim(),
+        category: document.getElementById("es-contact-category").value,
+        message: document.getElementById("es-contact-message").value.trim(),
+        sender_id: user ? user.id : null
+      });
+      if (error) throw error;
+      window.ExpoShare.toast(window.i18n.t("contact.form_success"), { type: "success" });
+      document.getElementById("es-contact-form").reset();
+    } catch (err) {
+      window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+    } finally {
+      window.ExpoShare.setButtonLoading(btn, false);
+    }
+  });
+
+  const revealBtn = document.getElementById("es-contact-reveal");
+  const emailWrap = document.getElementById("es-contact-email-wrap");
+  revealBtn.addEventListener("click", () => {
+    const hidden = emailWrap.classList.toggle("es-hidden");
+    revealBtn.setAttribute("data-i18n", hidden ? "contact.reveal_email" : "contact.hide_email");
+    revealBtn.textContent = window.i18n.t(hidden ? "contact.reveal_email" : "contact.hide_email");
+  });
+})();
+</script>
+</body>
+</html>
