@@ -12,8 +12,8 @@
  * (Project Settings → API).
  */
 window.EXPOSHARE_CONFIG = {
-  SUPABASE_URL: "https://YOUR-PROJECT-REF.supabase.co",
-  SUPABASE_ANON_KEY: "YOUR-PUBLISHABLE-ANON-KEY",
+  SUPABASE_URL: "https://bemeqadmifqvasjxbmmm.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_iYX67Zm_LGYmklnbUJYWEQ_oi4tNQoT",
 
   // Storage buckets (must match supabase/migrations)
   BUCKETS: {
