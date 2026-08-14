@@ -1,0 +1,38 @@
+{
+  "linkedin": {
+    "enabled": true,
+    "url": "https://www.linkedin.com/in/zekraouirabahallaaeddine",
+    "label": "LinkedIn",
+    "icon": "linkedin"
+  },
+  "instagram": {
+    "enabled": false,
+    "url": "",
+    "label": "Instagram",
+    "icon": "instagram"
+  },
+  "facebook": {
+    "enabled": false,
+    "url": "",
+    "label": "Facebook",
+    "icon": "facebook"
+  },
+  "x": {
+    "enabled": false,
+    "url": "",
+    "label": "X",
+    "icon": "x"
+  },
+  "youtube": {
+    "enabled": false,
+    "url": "",
+    "label": "YouTube",
+    "icon": "youtube"
+  },
+  "github": {
+    "enabled": false,
+    "url": "",
+    "label": "GitHub",
+    "icon": "github"
+  }
+}

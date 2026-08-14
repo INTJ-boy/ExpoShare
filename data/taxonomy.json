@@ -1,0 +1,332 @@
+{
+  "version": 1,
+  "fields": [
+    {
+      "id": "science",
+      "en": "Science", "fr": "Sciences", "ar": "العلوم",
+      "disciplines": [
+        {
+          "id": "biology",
+          "en": "Biology", "fr": "Biologie", "ar": "علم الأحياء",
+          "subdisciplines": [
+            { "id": "microbiology", "en": "Microbiology", "fr": "Microbiologie", "ar": "علم الأحياء الدقيقة" },
+            { "id": "bacteriology", "en": "Bacteriology", "fr": "Bactériologie", "ar": "علم الجراثيم" },
+            { "id": "virology", "en": "Virology", "fr": "Virologie", "ar": "علم الفيروسات" },
+            { "id": "mycology", "en": "Mycology", "fr": "Mycologie", "ar": "علم الفطريات" },
+            { "id": "parasitology", "en": "Parasitology", "fr": "Parasitologie", "ar": "علم الطفيليات" },
+            { "id": "medical-microbiology", "en": "Medical Microbiology", "fr": "Microbiologie médicale", "ar": "علم الأحياء الدقيقة الطبي" },
+            { "id": "industrial-microbiology", "en": "Industrial Microbiology", "fr": "Microbiologie industrielle", "ar": "علم الأحياء الدقيقة الصناعي" },
+            { "id": "environmental-microbiology", "en": "Environmental Microbiology", "fr": "Microbiologie environnementale", "ar": "علم الأحياء الدقيقة البيئي" },
+            { "id": "food-microbiology", "en": "Food Microbiology", "fr": "Microbiologie alimentaire", "ar": "علم الأحياء الدقيقة الغذائي" },
+            { "id": "pharmaceutical-microbiology", "en": "Pharmaceutical Microbiology", "fr": "Microbiologie pharmaceutique", "ar": "علم الأحياء الدقيقة الصيدلاني" },
+            { "id": "forensic-microbiology", "en": "Forensic Microbiology", "fr": "Microbiologie légale", "ar": "علم الأحياء الدقيقة الجنائي" },
+            { "id": "biotechnology-medical", "en": "Medical Biotechnology", "fr": "Biotechnologie médicale", "ar": "التقنية الحيوية الطبية" },
+            { "id": "biotechnology-industrial", "en": "Industrial Biotechnology", "fr": "Biotechnologie industrielle", "ar": "التقنية الحيوية الصناعية" },
+            { "id": "biotechnology-agricultural", "en": "Agricultural Biotechnology", "fr": "Biotechnologie agricole", "ar": "التقنية الحيوية الزراعية" },
+            { "id": "biotechnology-environmental", "en": "Environmental Biotechnology", "fr": "Biotechnologie environnementale", "ar": "التقنية الحيوية البيئية" },
+            { "id": "molecular-biology", "en": "Molecular Biology", "fr": "Biologie moléculaire", "ar": "الأحياء الجزيئية" },
+            { "id": "cell-biology", "en": "Cell Biology", "fr": "Biologie cellulaire", "ar": "الأحياء الخلوية" },
+            { "id": "genetics", "en": "Genetics", "fr": "Génétique", "ar": "علم الوراثة" },
+            { "id": "immunology", "en": "Immunology", "fr": "Immunologie", "ar": "علم المناعة" },
+            { "id": "biochemistry", "en": "Biochemistry", "fr": "Biochimie", "ar": "الكيمياء الحيوية" },
+            { "id": "ecology", "en": "Ecology", "fr": "Écologie", "ar": "علم البيئة" },
+            { "id": "zoology", "en": "Zoology", "fr": "Zoologie", "ar": "علم الحيوان" },
+            { "id": "botany", "en": "Botany", "fr": "Botanique", "ar": "علم النبات" },
+            { "id": "neuroscience", "en": "Neuroscience", "fr": "Neurosciences", "ar": "علم الأعصاب" },
+            { "id": "bioinformatics", "en": "Bioinformatics", "fr": "Bio-informatique", "ar": "المعلوماتية الحيوية" },
+            { "id": "developmental-biology", "en": "Developmental Biology", "fr": "Biologie du développement", "ar": "الأحياء التطورية" }
+          ]
+        },
+        {
+          "id": "physics-general",
+          "en": "Physics", "fr": "Physique", "ar": "الفيزياء",
+          "subdisciplines": [
+            { "id": "mechanics", "en": "Mechanics", "fr": "Mécanique", "ar": "الميكانيكا" },
+            { "id": "thermodynamics", "en": "Thermodynamics", "fr": "Thermodynamique", "ar": "الديناميكا الحرارية" },
+            { "id": "electromagnetism", "en": "Electromagnetism", "fr": "Électromagnétisme", "ar": "الكهرومغناطيسية" },
+            { "id": "quantum-physics", "en": "Quantum Physics", "fr": "Physique quantique", "ar": "الفيزياء الكمية" },
+            { "id": "astrophysics", "en": "Astrophysics", "fr": "Astrophysique", "ar": "الفيزياء الفلكية" },
+            { "id": "optics", "en": "Optics", "fr": "Optique", "ar": "البصريات" },
+            { "id": "nuclear-physics", "en": "Nuclear Physics", "fr": "Physique nucléaire", "ar": "الفيزياء النووية" }
+          ]
+        },
+        {
+          "id": "chemistry-general",
+          "en": "Chemistry", "fr": "Chimie", "ar": "الكيمياء",
+          "subdisciplines": [
+            { "id": "organic-chemistry", "en": "Organic Chemistry", "fr": "Chimie organique", "ar": "الكيمياء العضوية" },
+            { "id": "inorganic-chemistry", "en": "Inorganic Chemistry", "fr": "Chimie inorganique", "ar": "الكيمياء غير العضوية" },
+            { "id": "analytical-chemistry", "en": "Analytical Chemistry", "fr": "Chimie analytique", "ar": "الكيمياء التحليلية" },
+            { "id": "physical-chemistry", "en": "Physical Chemistry", "fr": "Chimie physique", "ar": "الكيمياء الفيزيائية" },
+            { "id": "polymer-chemistry", "en": "Polymer Chemistry", "fr": "Chimie des polymères", "ar": "كيمياء البوليمرات" }
+          ]
+        },
+        {
+          "id": "mathematics-statistics",
+          "en": "Mathematics & Statistics", "fr": "Mathématiques et statistiques", "ar": "الرياضيات والإحصاء",
+          "subdisciplines": [
+            { "id": "pure-mathematics", "en": "Pure Mathematics", "fr": "Mathématiques pures", "ar": "الرياضيات البحتة" },
+            { "id": "applied-mathematics", "en": "Applied Mathematics", "fr": "Mathématiques appliquées", "ar": "الرياضيات التطبيقية" },
+            { "id": "statistics", "en": "Statistics", "fr": "Statistiques", "ar": "الإحصاء" },
+            { "id": "probability", "en": "Probability Theory", "fr": "Théorie des probabilités", "ar": "نظرية الاحتمالات" }
+          ]
+        },
+        {
+          "id": "earth-environmental",
+          "en": "Earth & Environmental Sciences", "fr": "Sciences de la Terre et de l'environnement", "ar": "علوم الأرض والبيئة",
+          "subdisciplines": [
+            { "id": "geology", "en": "Geology", "fr": "Géologie", "ar": "الجيولوجيا" },
+            { "id": "meteorology", "en": "Meteorology", "fr": "Météorologie", "ar": "الأرصاد الجوية" },
+            { "id": "oceanography", "en": "Oceanography", "fr": "Océanographie", "ar": "علم المحيطات" },
+            { "id": "environmental-science", "en": "Environmental Science", "fr": "Sciences de l'environnement", "ar": "علوم البيئة" },
+            { "id": "climatology", "en": "Climatology", "fr": "Climatologie", "ar": "علم المناخ" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "health-medicine",
+      "en": "Health & Medicine", "fr": "Santé et médecine", "ar": "الصحة والطب",
+      "disciplines": [
+        {
+          "id": "general-medicine",
+          "en": "General Medicine", "fr": "Médecine générale", "ar": "الطب العام",
+          "subdisciplines": [
+            { "id": "cardiology", "en": "Cardiology", "fr": "Cardiologie", "ar": "طب القلب" },
+            { "id": "neurology", "en": "Neurology", "fr": "Neurologie", "ar": "طب الأعصاب" },
+            { "id": "oncology", "en": "Oncology", "fr": "Oncologie", "ar": "طب الأورام" },
+            { "id": "pediatrics", "en": "Pediatrics", "fr": "Pédiatrie", "ar": "طب الأطفال" },
+            { "id": "dermatology", "en": "Dermatology", "fr": "Dermatologie", "ar": "طب الجلدية" },
+            { "id": "psychiatry", "en": "Psychiatry", "fr": "Psychiatrie", "ar": "الطب النفسي" },
+            { "id": "surgery", "en": "Surgery", "fr": "Chirurgie", "ar": "الجراحة" },
+            { "id": "radiology", "en": "Radiology", "fr": "Radiologie", "ar": "الأشعة" }
+          ]
+        },
+        {
+          "id": "nursing",
+          "en": "Nursing", "fr": "Sciences infirmières", "ar": "التمريض",
+          "subdisciplines": [
+            { "id": "clinical-nursing", "en": "Clinical Nursing", "fr": "Soins infirmiers cliniques", "ar": "التمريض السريري" },
+            { "id": "public-health-nursing", "en": "Public Health Nursing", "fr": "Soins infirmiers de santé publique", "ar": "تمريض الصحة العامة" }
+          ]
+        },
+        {
+          "id": "dentistry",
+          "en": "Dentistry", "fr": "Dentisterie", "ar": "طب الأسنان",
+          "subdisciplines": [
+            { "id": "orthodontics", "en": "Orthodontics", "fr": "Orthodontie", "ar": "تقويم الأسنان" },
+            { "id": "periodontology", "en": "Periodontology", "fr": "Parodontologie", "ar": "أمراض اللثة" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pharmacy",
+      "en": "Pharmacy", "fr": "Pharmacie", "ar": "الصيدلة",
+      "disciplines": [
+        {
+          "id": "pharmacology",
+          "en": "Pharmacology", "fr": "Pharmacologie", "ar": "علم الأدوية",
+          "subdisciplines": [
+            { "id": "clinical-pharmacy", "en": "Clinical Pharmacy", "fr": "Pharmacie clinique", "ar": "الصيدلة السريرية" },
+            { "id": "pharmaceutical-chemistry", "en": "Pharmaceutical Chemistry", "fr": "Chimie pharmaceutique", "ar": "الكيمياء الصيدلانية" },
+            { "id": "toxicology", "en": "Toxicology", "fr": "Toxicologie", "ar": "علم السموم" },
+            { "id": "pharmaceutics", "en": "Pharmaceutics", "fr": "Pharmacotechnie", "ar": "الصيدلانيات" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "en": "Engineering", "fr": "Ingénierie", "ar": "الهندسة",
+      "disciplines": [
+        { "id": "civil-engineering", "en": "Civil Engineering", "fr": "Génie civil", "ar": "الهندسة المدنية",
+          "subdisciplines": [
+            { "id": "structural-engineering", "en": "Structural Engineering", "fr": "Génie des structures", "ar": "هندسة الإنشاءات" },
+            { "id": "geotechnical-engineering", "en": "Geotechnical Engineering", "fr": "Génie géotechnique", "ar": "الهندسة الجيوتقنية" },
+            { "id": "transportation-engineering", "en": "Transportation Engineering", "fr": "Génie des transports", "ar": "هندسة النقل" },
+            { "id": "hydraulic-engineering", "en": "Hydraulic Engineering", "fr": "Génie hydraulique", "ar": "الهندسة الهيدروليكية" }
+          ]
+        },
+        { "id": "mechanical-engineering", "en": "Mechanical Engineering", "fr": "Génie mécanique", "ar": "الهندسة الميكانيكية",
+          "subdisciplines": [
+            { "id": "thermal-systems", "en": "Thermal Systems", "fr": "Systèmes thermiques", "ar": "الأنظمة الحرارية" },
+            { "id": "manufacturing-engineering", "en": "Manufacturing Engineering", "fr": "Génie de fabrication", "ar": "هندسة التصنيع" },
+            { "id": "hvac", "en": "HVAC Systems", "fr": "Systèmes CVC", "ar": "أنظمة التكييف والتهوية" }
+          ]
+        },
+        { "id": "electrical-engineering", "en": "Electrical Engineering", "fr": "Génie électrique", "ar": "الهندسة الكهربائية",
+          "subdisciplines": [
+            { "id": "power-systems", "en": "Power Systems", "fr": "Systèmes électriques de puissance", "ar": "أنظمة القدرة الكهربائية" },
+            { "id": "control-systems", "en": "Control Systems", "fr": "Systèmes de contrôle", "ar": "أنظمة التحكم" }
+          ]
+        },
+        { "id": "electronics-engineering", "en": "Electronics Engineering", "fr": "Génie électronique", "ar": "هندسة الإلكترونيات",
+          "subdisciplines": [
+            { "id": "embedded-systems", "en": "Embedded Systems", "fr": "Systèmes embarqués", "ar": "الأنظمة المدمجة" },
+            { "id": "signal-processing", "en": "Signal Processing", "fr": "Traitement du signal", "ar": "معالجة الإشارات" }
+          ]
+        },
+        { "id": "chemical-engineering", "en": "Chemical Engineering", "fr": "Génie chimique", "ar": "الهندسة الكيميائية",
+          "subdisciplines": [
+            { "id": "process-engineering", "en": "Process Engineering", "fr": "Génie des procédés", "ar": "هندسة العمليات" }
+          ]
+        },
+        { "id": "industrial-engineering", "en": "Industrial Engineering", "fr": "Génie industriel", "ar": "الهندسة الصناعية", "subdisciplines": [] },
+        { "id": "biomedical-engineering", "en": "Biomedical Engineering", "fr": "Génie biomédical", "ar": "الهندسة الطبية الحيوية", "subdisciplines": [] },
+        { "id": "aerospace-engineering", "en": "Aerospace Engineering", "fr": "Génie aérospatial", "ar": "الهندسة الفضائية والجوية", "subdisciplines": [] },
+        { "id": "automotive-engineering", "en": "Automotive Engineering", "fr": "Génie automobile", "ar": "هندسة السيارات", "subdisciplines": [] },
+        { "id": "computer-engineering", "en": "Computer Engineering", "fr": "Génie informatique", "ar": "هندسة الحاسوب", "subdisciplines": [] },
+        { "id": "software-engineering", "en": "Software Engineering", "fr": "Génie logiciel", "ar": "هندسة البرمجيات", "subdisciplines": [] },
+        { "id": "telecommunications-engineering", "en": "Telecommunications Engineering", "fr": "Génie des télécommunications", "ar": "هندسة الاتصالات", "subdisciplines": [] },
+        { "id": "environmental-engineering", "en": "Environmental Engineering", "fr": "Génie environnemental", "ar": "الهندسة البيئية", "subdisciplines": [] },
+        { "id": "materials-engineering", "en": "Materials Engineering", "fr": "Génie des matériaux", "ar": "هندسة المواد", "subdisciplines": [] },
+        { "id": "petroleum-engineering", "en": "Petroleum Engineering", "fr": "Génie pétrolier", "ar": "هندسة البترول", "subdisciplines": [] },
+        { "id": "mining-engineering", "en": "Mining Engineering", "fr": "Génie minier", "ar": "الهندسة التعدينية", "subdisciplines": [] },
+        { "id": "nuclear-engineering", "en": "Nuclear Engineering", "fr": "Génie nucléaire", "ar": "الهندسة النووية", "subdisciplines": [] },
+        { "id": "robotics-engineering", "en": "Robotics Engineering", "fr": "Génie robotique", "ar": "هندسة الروبوتات", "subdisciplines": [] },
+        { "id": "mechatronics", "en": "Mechatronics", "fr": "Mécatronique", "ar": "الميكاترونكس", "subdisciplines": [] },
+        { "id": "marine-engineering", "en": "Marine Engineering", "fr": "Génie maritime", "ar": "الهندسة البحرية", "subdisciplines": [] }
+      ]
+    },
+    {
+      "id": "computer-science-it",
+      "en": "Computer Science & IT", "fr": "Informatique et TI", "ar": "علوم الحاسوب وتقنية المعلومات",
+      "disciplines": [
+        { "id": "software-development", "en": "Software Development", "fr": "Développement logiciel", "ar": "تطوير البرمجيات",
+          "subdisciplines": [
+            { "id": "web-development", "en": "Web Development", "fr": "Développement web", "ar": "تطوير الويب" },
+            { "id": "mobile-development", "en": "Mobile Development", "fr": "Développement mobile", "ar": "تطوير تطبيقات الجوال" }
+          ]
+        },
+        { "id": "artificial-intelligence", "en": "Artificial Intelligence", "fr": "Intelligence artificielle", "ar": "الذكاء الاصطناعي",
+          "subdisciplines": [
+            { "id": "machine-learning", "en": "Machine Learning", "fr": "Apprentissage automatique", "ar": "تعلم الآلة" },
+            { "id": "natural-language-processing", "en": "Natural Language Processing", "fr": "Traitement du langage naturel", "ar": "معالجة اللغة الطبيعية" },
+            { "id": "computer-vision", "en": "Computer Vision", "fr": "Vision par ordinateur", "ar": "الرؤية الحاسوبية" }
+          ]
+        },
+        { "id": "cybersecurity", "en": "Cybersecurity", "fr": "Cybersécurité", "ar": "الأمن السيبراني", "subdisciplines": [] },
+        { "id": "data-science", "en": "Data Science", "fr": "Science des données", "ar": "علم البيانات", "subdisciplines": [] },
+        { "id": "networks", "en": "Computer Networks", "fr": "Réseaux informatiques", "ar": "شبكات الحاسوب", "subdisciplines": [] },
+        { "id": "databases", "en": "Databases", "fr": "Bases de données", "ar": "قواعد البيانات", "subdisciplines": [] }
+      ]
+    },
+    {
+      "id": "sports",
+      "en": "Sports", "fr": "Sport", "ar": "الرياضة",
+      "disciplines": [
+        { "id": "football", "en": "Football", "fr": "Football", "ar": "كرة القدم", "subdisciplines": [] },
+        { "id": "basketball", "en": "Basketball", "fr": "Basketball", "ar": "كرة السلة", "subdisciplines": [] },
+        { "id": "volleyball", "en": "Volleyball", "fr": "Volleyball", "ar": "الكرة الطائرة", "subdisciplines": [] },
+        { "id": "tennis", "en": "Tennis", "fr": "Tennis", "ar": "التنس", "subdisciplines": [] },
+        { "id": "table-tennis", "en": "Table Tennis", "fr": "Tennis de table", "ar": "تنس الطاولة", "subdisciplines": [] },
+        { "id": "badminton", "en": "Badminton", "fr": "Badminton", "ar": "الريشة الطائرة", "subdisciplines": [] },
+        { "id": "handball", "en": "Handball", "fr": "Handball", "ar": "كرة اليد", "subdisciplines": [] },
+        { "id": "rugby", "en": "Rugby", "fr": "Rugby", "ar": "الرغبي", "subdisciplines": [] },
+        { "id": "cricket", "en": "Cricket", "fr": "Cricket", "ar": "الكريكيت", "subdisciplines": [] },
+        { "id": "baseball", "en": "Baseball", "fr": "Baseball", "ar": "البيسبول", "subdisciplines": [] },
+        { "id": "swimming", "en": "Swimming", "fr": "Natation", "ar": "السباحة", "subdisciplines": [] },
+        { "id": "athletics", "en": "Athletics", "fr": "Athlétisme", "ar": "ألعاب القوى", "subdisciplines": [] },
+        { "id": "cycling", "en": "Cycling", "fr": "Cyclisme", "ar": "ركوب الدراجات", "subdisciplines": [] },
+        { "id": "gymnastics", "en": "Gymnastics", "fr": "Gymnastique", "ar": "الجمباز", "subdisciplines": [] },
+        { "id": "calisthenics", "en": "Calisthenics", "fr": "Callisthénie", "ar": "التمارين الحرة", "subdisciplines": [] },
+        { "id": "bodybuilding", "en": "Bodybuilding", "fr": "Musculation", "ar": "كمال الأجسام", "subdisciplines": [] },
+        { "id": "powerlifting", "en": "Powerlifting", "fr": "Force athlétique", "ar": "رفع الأثقال القوة", "subdisciplines": [] },
+        { "id": "weightlifting", "en": "Weightlifting", "fr": "Haltérophilie", "ar": "رفع الأثقال", "subdisciplines": [] },
+        { "id": "boxing", "en": "Boxing", "fr": "Boxe", "ar": "الملاكمة", "subdisciplines": [] },
+        { "id": "kickboxing", "en": "Kickboxing", "fr": "Kickboxing", "ar": "الملاكمة الركلية", "subdisciplines": [] },
+        { "id": "muay-thai", "en": "Muay Thai", "fr": "Muay Thaï", "ar": "المواي تاي", "subdisciplines": [] },
+        { "id": "mma", "en": "MMA", "fr": "MMA", "ar": "الفنون القتالية المختلطة", "subdisciplines": [] },
+        { "id": "judo", "en": "Judo", "fr": "Judo", "ar": "الجودو", "subdisciplines": [] },
+        { "id": "karate", "en": "Karate", "fr": "Karaté", "ar": "الكاراتيه", "subdisciplines": [] },
+        { "id": "taekwondo", "en": "Taekwondo", "fr": "Taekwondo", "ar": "التايكواندو", "subdisciplines": [] },
+        { "id": "wrestling", "en": "Wrestling", "fr": "Lutte", "ar": "المصارعة", "subdisciplines": [] },
+        { "id": "fencing", "en": "Fencing", "fr": "Escrime", "ar": "المبارزة", "subdisciplines": [] },
+        { "id": "golf", "en": "Golf", "fr": "Golf", "ar": "الغولف", "subdisciplines": [] },
+        { "id": "archery", "en": "Archery", "fr": "Tir à l'arc", "ar": "الرماية بالقوس", "subdisciplines": [] },
+        { "id": "motorsport", "en": "Motorsport", "fr": "Sport automobile", "ar": "رياضة السيارات", "subdisciplines": [] },
+        { "id": "esports", "en": "Esports", "fr": "Sport électronique", "ar": "الرياضات الإلكترونية", "subdisciplines": [] },
+        { "id": "sports-management", "en": "Sports Management", "fr": "Gestion sportive", "ar": "الإدارة الرياضية", "subdisciplines": [] },
+        { "id": "sports-coaching", "en": "Sports Coaching", "fr": "Entraînement sportif", "ar": "التدريب الرياضي", "subdisciplines": [] },
+        { "id": "sports-psychology", "en": "Sports Psychology", "fr": "Psychologie du sport", "ar": "علم النفس الرياضي", "subdisciplines": [] },
+        { "id": "sports-nutrition", "en": "Sports Nutrition", "fr": "Nutrition sportive", "ar": "التغذية الرياضية", "subdisciplines": [] }
+      ]
+    },
+    { "id": "environmental-sciences", "en": "Environmental Sciences", "fr": "Sciences environnementales", "ar": "العلوم البيئية", "disciplines": [
+      { "id": "conservation", "en": "Conservation Science", "fr": "Sciences de la conservation", "ar": "علوم الحفاظ على البيئة", "subdisciplines": [] },
+      { "id": "sustainability", "en": "Sustainability Studies", "fr": "Études de durabilité", "ar": "دراسات الاستدامة", "subdisciplines": [] }
+    ]},
+    { "id": "agriculture", "en": "Agriculture", "fr": "Agriculture", "ar": "الزراعة", "disciplines": [
+      { "id": "agronomy", "en": "Agronomy", "fr": "Agronomie", "ar": "علم الزراعة", "subdisciplines": [] },
+      { "id": "animal-science", "en": "Animal Science", "fr": "Zootechnie", "ar": "علوم الحيوان", "subdisciplines": [] },
+      { "id": "horticulture", "en": "Horticulture", "fr": "Horticulture", "ar": "البستنة", "subdisciplines": [] }
+    ]},
+    { "id": "food-science", "en": "Food Science", "fr": "Science alimentaire", "ar": "علوم الأغذية", "disciplines": [
+      { "id": "food-technology", "en": "Food Technology", "fr": "Technologie alimentaire", "ar": "تكنولوجيا الأغذية", "subdisciplines": [] },
+      { "id": "nutrition-science", "en": "Nutrition Science", "fr": "Science de la nutrition", "ar": "علم التغذية", "subdisciplines": [] }
+    ]},
+    { "id": "forensic-science", "en": "Forensic Science", "fr": "Sciences forensiques", "ar": "العلوم الجنائية", "disciplines": [
+      { "id": "forensic-pathology", "en": "Forensic Pathology", "fr": "Pathologie légale", "ar": "علم الأمراض الجنائي", "subdisciplines": [] },
+      { "id": "digital-forensics", "en": "Digital Forensics", "fr": "Criminalistique numérique", "ar": "الأدلة الجنائية الرقمية", "subdisciplines": [] }
+    ]},
+    { "id": "economics-business", "en": "Economics & Business", "fr": "Économie et affaires", "ar": "الاقتصاد والأعمال", "disciplines": [
+      { "id": "economics", "en": "Economics", "fr": "Économie", "ar": "الاقتصاد", "subdisciplines": [] },
+      { "id": "management", "en": "Management", "fr": "Gestion", "ar": "الإدارة", "subdisciplines": [] },
+      { "id": "marketing", "en": "Marketing", "fr": "Marketing", "ar": "التسويق", "subdisciplines": [] },
+      { "id": "finance", "en": "Finance", "fr": "Finance", "ar": "المالية", "subdisciplines": [] },
+      { "id": "accounting", "en": "Accounting", "fr": "Comptabilité", "ar": "المحاسبة", "subdisciplines": [] }
+    ]},
+    { "id": "law", "en": "Law", "fr": "Droit", "ar": "القانون", "disciplines": [
+      { "id": "public-law", "en": "Public Law", "fr": "Droit public", "ar": "القانون العام", "subdisciplines": [] },
+      { "id": "private-law", "en": "Private Law", "fr": "Droit privé", "ar": "القانون الخاص", "subdisciplines": [] },
+      { "id": "international-law", "en": "International Law", "fr": "Droit international", "ar": "القانون الدولي", "subdisciplines": [] }
+    ]},
+    { "id": "social-sciences", "en": "Social Sciences", "fr": "Sciences sociales", "ar": "العلوم الاجتماعية", "disciplines": [
+      { "id": "sociology", "en": "Sociology", "fr": "Sociologie", "ar": "علم الاجتماع", "subdisciplines": [] },
+      { "id": "anthropology", "en": "Anthropology", "fr": "Anthropologie", "ar": "علم الإنسان", "subdisciplines": [] }
+    ]},
+    { "id": "humanities", "en": "Humanities", "fr": "Sciences humaines", "ar": "العلوم الإنسانية", "disciplines": [
+      { "id": "history", "en": "History", "fr": "Histoire", "ar": "التاريخ", "subdisciplines": [] },
+      { "id": "philosophy", "en": "Philosophy", "fr": "Philosophie", "ar": "الفلسفة", "subdisciplines": [] }
+    ]},
+    { "id": "education", "en": "Education", "fr": "Éducation", "ar": "التربية والتعليم", "disciplines": [
+      { "id": "pedagogy", "en": "Pedagogy", "fr": "Pédagogie", "ar": "علم أصول التدريس", "subdisciplines": [] },
+      { "id": "educational-technology", "en": "Educational Technology", "fr": "Technologie éducative", "ar": "تكنولوجيا التعليم", "subdisciplines": [] }
+    ]},
+    { "id": "languages-linguistics", "en": "Languages & Linguistics", "fr": "Langues et linguistique", "ar": "اللغات وعلم اللغة", "disciplines": [
+      { "id": "applied-linguistics", "en": "Applied Linguistics", "fr": "Linguistique appliquée", "ar": "اللسانيات التطبيقية", "subdisciplines": [] },
+      { "id": "translation-studies", "en": "Translation Studies", "fr": "Traductologie", "ar": "دراسات الترجمة", "subdisciplines": [] }
+    ]},
+    { "id": "architecture-design", "en": "Architecture & Design", "fr": "Architecture et design", "ar": "العمارة والتصميم", "disciplines": [
+      { "id": "architecture", "en": "Architecture", "fr": "Architecture", "ar": "العمارة", "subdisciplines": [] },
+      { "id": "urban-planning", "en": "Urban Planning", "fr": "Urbanisme", "ar": "التخطيط الحضري", "subdisciplines": [] },
+      { "id": "industrial-design", "en": "Industrial Design", "fr": "Design industriel", "ar": "التصميم الصناعي", "subdisciplines": [] }
+    ]},
+    { "id": "arts", "en": "Arts", "fr": "Arts", "ar": "الفنون", "disciplines": [
+      { "id": "fine-arts", "en": "Fine Arts", "fr": "Beaux-arts", "ar": "الفنون الجميلة", "subdisciplines": [] },
+      { "id": "music", "en": "Music", "fr": "Musique", "ar": "الموسيقى", "subdisciplines": [] }
+    ]},
+    { "id": "media-communication", "en": "Media & Communication", "fr": "Médias et communication", "ar": "الإعلام والاتصال", "disciplines": [
+      { "id": "journalism", "en": "Journalism", "fr": "Journalisme", "ar": "الصحافة", "subdisciplines": [] },
+      { "id": "digital-media", "en": "Digital Media", "fr": "Médias numériques", "ar": "الإعلام الرقمي", "subdisciplines": [] }
+    ]},
+    { "id": "psychology", "en": "Psychology", "fr": "Psychologie", "ar": "علم النفس", "disciplines": [
+      { "id": "clinical-psychology", "en": "Clinical Psychology", "fr": "Psychologie clinique", "ar": "علم النفس الإكلينيكي", "subdisciplines": [] },
+      { "id": "cognitive-psychology", "en": "Cognitive Psychology", "fr": "Psychologie cognitive", "ar": "علم النفس المعرفي", "subdisciplines": [] }
+    ]},
+    { "id": "transportation", "en": "Transportation", "fr": "Transport", "ar": "النقل", "disciplines": [
+      { "id": "logistics", "en": "Logistics", "fr": "Logistique", "ar": "اللوجستيات", "subdisciplines": [] }
+    ]},
+    { "id": "energy", "en": "Energy", "fr": "Énergie", "ar": "الطاقة", "disciplines": [
+      { "id": "renewable-energy", "en": "Renewable Energy", "fr": "Énergies renouvelables", "ar": "الطاقة المتجددة", "subdisciplines": [] }
+    ]},
+    { "id": "tourism-hospitality", "en": "Tourism & Hospitality", "fr": "Tourisme et hôtellerie", "ar": "السياحة والضيافة", "disciplines": [
+      { "id": "hospitality-management", "en": "Hospitality Management", "fr": "Gestion hôtelière", "ar": "إدارة الضيافة", "subdisciplines": [] }
+    ]},
+    { "id": "political-science", "en": "Political Science", "fr": "Sciences politiques", "ar": "العلوم السياسية", "disciplines": [
+      { "id": "international-relations", "en": "International Relations", "fr": "Relations internationales", "ar": "العلاقات الدولية", "subdisciplines": [] }
+    ]},
+    { "id": "interdisciplinary-studies", "en": "Interdisciplinary Studies", "fr": "Études interdisciplinaires", "ar": "الدراسات متعددة التخصصات", "disciplines": [] }
+  ]
+}
