@@ -1,3 +1,4 @@
+![ExpoShare banner](assets/icons/og-image.png)
 # ExpoShare 🦑
 
 A community platform for uploading and discovering educational
