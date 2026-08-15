@@ -178,7 +178,16 @@
     "approved_presentations": "Présentations approuvées",
     "public_activity": "Activité publique",
     "update_success": "Profil mis à jour.",
-    "no_presentations": "Cet utilisateur n'a encore publié aucune présentation."
+    "no_presentations": "Cet utilisateur n'a encore publié aucune présentation.",
+    "average_rating": "Note du contributeur",
+    "rating_count_one": "{count} note",
+    "rating_count_other": "{count} notes",
+    "no_ratings_yet": "Aucune note pour le moment.",
+    "rate_contributor": "Noter ce contributeur",
+    "your_rating": "Votre note",
+    "rating_saved": "Merci, votre note a été enregistrée.",
+    "cannot_rate_self": "Vous ne pouvez pas noter votre propre profil.",
+    "sign_in_to_rate": "Connectez-vous pour noter ce contributeur."
   },
   "settings": {
     "title": "Paramètres",
@@ -233,7 +242,19 @@
     "confirm_delete": "Ce dépôt sera définitivement supprimé. Cette action est irréversible.",
     "confirm_reject": "Rejeter ce dépôt ?",
     "confirm_hide": "Masquer cette présentation approuvée de la bibliothèque publique ?",
-    "unauthorized": "Vous n'avez pas la permission de voir cette page."
+    "unauthorized": "Vous n'avez pas la permission de voir cette page.",
+    "messages_tab": "Messages",
+    "no_messages": "Aucun message.",
+    "reply_placeholder": "Écrire une réponse...",
+    "send_reply": "Envoyer la réponse",
+    "reply_sent": "Réponse envoyée.",
+    "message_resolved": "Résolu",
+    "message_open": "Ouvert",
+    "mark_resolved": "Marquer comme résolu",
+    "stat_pending": "En attente de révision",
+    "stat_reports": "Signalements ouverts",
+    "stat_messages": "Messages ouverts",
+    "stat_approved_total": "Total approuvé"
   },
   "templates": {
     "title": "Modèles",
@@ -376,7 +397,12 @@
     "form_category_other": "Autre",
     "form_message": "Message",
     "form_submit": "Envoyer le message",
-    "form_success": "Merci, votre message a été envoyé. Nous vous répondrons bientôt."
+    "form_success": "Merci, votre message a été envoyé. Nous vous répondrons bientôt.",
+    "your_messages_title": "Vos messages",
+    "no_messages_yet": "Vous n'avez envoyé aucun message pour le moment.",
+    "reply_from_admin": "Réponse d'ExpoShare",
+    "status_open": "En attente de réponse",
+    "status_resolved": "Répondu"
   },
   "about": {
     "title": "À propos d'ExpoShare",
@@ -395,5 +421,17 @@
     "terms_p6": "Nous pouvons mettre à jour ces conditions de temps à autre. Nous publierons les conditions révisées ici ; continuer à utiliser ExpoShare après ces modifications signifie que vous les acceptez.",
     "copyright_p1": "Les problèmes de droits d'auteur peuvent être signalés directement depuis n'importe quelle page de présentation via le bouton Signaler, ou via le formulaire de contact de la page Contact.",
     "copyright_p2": "Si vous pensez qu'une œuvre protégée par vos droits d'auteur a été déposée sans autorisation, indiquez-nous le lien de la présentation, une description de l'œuvre et vos coordonnées via le formulaire de contact ; nous examinerons et retirerons rapidement tout contenu contrefaisant."
+  },
+  "donation": {
+    "cta": "Soutenir ExpoShare",
+    "title": "Soutenir ExpoShare",
+    "quote_arabic": "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ ۗ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ ۗ وَاللَّهُ وَاسِعٌ عَلِيمٌ",
+    "quote_translation": "Ceux qui dépensent leurs biens dans le sentier d'Allah ressemblent à un grain d'où naissent sept épis, à cent grains l'épi. Allah multiplie la récompense à qui Il veut, et Allah est Immense et Omniscient.",
+    "quote_reference": "Coran, Al-Baqarah 2:261",
+    "intro": "Si ExpoShare vous a été utile, envisagez de le soutenir. Chaque contribution, même modeste, aide à le faire vivre.",
+    "ccp_label": "CCP",
+    "name_label": "Nom",
+    "baridimob_label": "BaridiMob",
+    "copied": "Copié."
   }
 }

@@ -178,7 +178,16 @@
     "approved_presentations": "Approved presentations",
     "public_activity": "Public activity",
     "update_success": "Profile updated.",
-    "no_presentations": "This user hasn't published any presentations yet."
+    "no_presentations": "This user hasn't published any presentations yet.",
+    "average_rating": "Contributor rating",
+    "rating_count_one": "{count} rating",
+    "rating_count_other": "{count} ratings",
+    "no_ratings_yet": "No ratings yet.",
+    "rate_contributor": "Rate this contributor",
+    "your_rating": "Your rating",
+    "rating_saved": "Thanks, your rating was saved.",
+    "cannot_rate_self": "You can't rate your own profile.",
+    "sign_in_to_rate": "Sign in to rate this contributor."
   },
   "settings": {
     "title": "Settings",
@@ -233,7 +242,19 @@
     "confirm_delete": "This will permanently delete this submission. This cannot be undone.",
     "confirm_reject": "Reject this submission?",
     "confirm_hide": "Hide this approved presentation from the public library?",
-    "unauthorized": "You don't have permission to view this page."
+    "unauthorized": "You don't have permission to view this page.",
+    "messages_tab": "Messages",
+    "no_messages": "No messages.",
+    "reply_placeholder": "Write a reply...",
+    "send_reply": "Send reply",
+    "reply_sent": "Reply sent.",
+    "message_resolved": "Resolved",
+    "message_open": "Open",
+    "mark_resolved": "Mark resolved",
+    "stat_pending": "Pending review",
+    "stat_reports": "Open reports",
+    "stat_messages": "Open messages",
+    "stat_approved_total": "Approved total"
   },
   "templates": {
     "title": "Templates",
@@ -376,7 +397,12 @@
     "form_category_other": "Other",
     "form_message": "Message",
     "form_submit": "Send message",
-    "form_success": "Thanks, your message was sent. We'll get back to you soon."
+    "form_success": "Thanks, your message was sent. We'll get back to you soon.",
+    "your_messages_title": "Your messages",
+    "no_messages_yet": "You haven't sent any messages yet.",
+    "reply_from_admin": "Reply from ExpoShare",
+    "status_open": "Awaiting reply",
+    "status_resolved": "Replied"
   },
   "about": {
     "title": "About ExpoShare",
@@ -395,5 +421,17 @@
     "terms_p6": "We may update these terms from time to time. We'll post the revised terms here; continuing to use ExpoShare after changes means you accept them.",
     "copyright_p1": "Copyright concerns can be reported directly from any presentation page using the Report button, or through the contact form on the Contact page.",
     "copyright_p2": "If you believe your copyrighted work was uploaded without permission, tell us the presentation link, a description of the work, and your contact details using the contact form, and we'll review and remove infringing content promptly."
+  },
+  "donation": {
+    "cta": "Support ExpoShare",
+    "title": "Support ExpoShare",
+    "quote_arabic": "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ ۗ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ ۗ وَاللَّهُ وَاسِعٌ عَلِيمٌ",
+    "quote_translation": "The example of those who spend their wealth in the way of Allah is like a seed which grows seven spikes, in each spike a hundred grains. Allah multiplies the reward for whom He wills, and Allah is All-Encompassing, All-Knowing.",
+    "quote_reference": "Quran, Al-Baqarah 2:261",
+    "intro": "If ExpoShare has been useful to you, consider supporting it. Every contribution, however small, helps keep it running.",
+    "ccp_label": "CCP",
+    "name_label": "Name",
+    "baridimob_label": "BaridiMob",
+    "copied": "Copied."
   }
 }
