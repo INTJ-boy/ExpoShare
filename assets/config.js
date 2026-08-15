@@ -13,7 +13,7 @@
  */
 window.EXPOSHARE_CONFIG = {
   SUPABASE_URL: "https://bemeqadmifqvasjxbmmm.supabase.co",
-  SUPABASE_ANON_KEY: "sb_publishable_iYX67Zm_LGYmklnbUJYWEQ_oi4tNQoT",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlbWVxYWRtaWZxdmFzanhibW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTU0ODQsImV4cCI6MjEwMjIzMTQ4NH0.5ZWnAYoQjT5Ih0iFRCERDB6q1nMOsD0JPQf9N2esw0I",
 
   // Storage buckets (must match supabase/migrations)
   BUCKETS: {
