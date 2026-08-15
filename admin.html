@@ -60,9 +60,17 @@
     <div class="es-container" id="es-admin-root">
       <div class="es-page-title"><h1 data-i18n="admin.title">Admin panel</h1></div>
 
+      <div class="es-stats" id="es-admin-stats" style="margin:0 0 32px;">
+        <div class="es-stat"><div class="es-stat__value" id="es-admin-stat-pending">-</div><div class="es-stat__label" data-i18n="admin.stat_pending">Pending review</div></div>
+        <div class="es-stat"><div class="es-stat__value" id="es-admin-stat-reports">-</div><div class="es-stat__label" data-i18n="admin.stat_reports">Open reports</div></div>
+        <div class="es-stat"><div class="es-stat__value" id="es-admin-stat-messages">-</div><div class="es-stat__label" data-i18n="admin.stat_messages">Open messages</div></div>
+        <div class="es-stat"><div class="es-stat__value" id="es-admin-stat-approved">-</div><div class="es-stat__label" data-i18n="admin.stat_approved_total">Approved total</div></div>
+      </div>
+
       <div class="es-tabs">
         <div class="es-tab is-active" id="es-admin-tab-queue" data-i18n="admin.queue">Submission queue</div>
         <div class="es-tab" id="es-admin-tab-reports" data-i18n="admin.reports_tab">Reports</div>
+        <div class="es-tab" id="es-admin-tab-messages" data-i18n="admin.messages_tab">Messages</div>
       </div>
 
       <div class="es-filters-bar">
@@ -79,6 +87,7 @@
 
       <div id="es-admin-queue"></div>
       <div id="es-admin-reports" class="es-hidden"></div>
+      <div id="es-admin-messages" class="es-hidden"></div>
     </div>
   </main>
 
