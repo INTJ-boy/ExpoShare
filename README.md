@@ -18,11 +18,11 @@ made by Zekraoui Rabah AllaaEddine🦑 ©2026
 ├── robots.txt
 ├── assets/
 │   ├── style.css       (Onyx × Candy Blue design system)
-│   ├── config.js        (Supabase URL/anon key: fill this in)
+│   ├── config.js        
 │   ├── i18n.js           (translation engine)
 │   ├── lang-switch.js    (header language dropdown)
 │   ├── app.js            (toasts, modals, loading screen, search, mascot)
-│   ├── auth.js            (Supabase Auth wrapper)
+│   ├── auth.js            
 │   ├── browse.js
 │   ├── upload.js
 │   ├── admin.js
