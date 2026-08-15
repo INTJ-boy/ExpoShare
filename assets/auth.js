@@ -141,6 +141,131 @@ window.ExpoShareAuth = (function () {
         }
       });
     }
+
+    updateNotificationBell();
+  }
+
+  /* -------------------------------------------------------- Notification bell */
+
+  const NOTIF_TYPE_ICON = {
+    approved: "check",
+    rejected: "x",
+    changes_requested: "edit",
+    hidden: "eye-off"
+  };
+
+  function updateNotificationBell() {
+    const anchor = document.getElementById("es-lang-switch");
+    if (!anchor || !anchor.parentElement) return; // page has no header actions row
+
+    let bell = document.getElementById("es-notif");
+    if (!isLoggedIn()) {
+      if (bell) bell.remove();
+      return;
+    }
+    if (!bell) {
+      bell = document.createElement("div");
+      bell.className = "es-notif";
+      bell.id = "es-notif";
+      bell.innerHTML = `
+        <button class="es-notif__toggle" id="es-notif-toggle" aria-label="Notifications">
+          <span aria-hidden="true">&#128276;</span>
+          <span class="es-notif__badge es-hidden" id="es-notif-badge">0</span>
+        </button>
+        <div class="es-notif__panel" id="es-notif-panel">
+          <div class="es-notif__head">
+            <span data-i18n="notifications.title">Notifications</span>
+            <button class="es-notif__mark-all" id="es-notif-mark-all" data-i18n="buttons.mark_all_read">Mark all as read</button>
+          </div>
+          <div class="es-notif__list" id="es-notif-list"></div>
+        </div>`;
+      anchor.parentElement.insertBefore(bell, anchor);
+      window.i18n && window.i18n.apply(bell);
+
+      const toggle = bell.querySelector("#es-notif-toggle");
+      toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willOpen = !bell.classList.contains("es-notif--open");
+        bell.classList.toggle("es-notif--open");
+        if (willOpen) loadNotifications();
+      });
+      document.addEventListener("click", (e) => {
+        if (!bell.contains(e.target)) bell.classList.remove("es-notif--open");
+      });
+      bell.querySelector("#es-notif-mark-all").addEventListener("click", async (e) => {
+        e.stopPropagation();
+        await markAllNotificationsRead();
+      });
+    }
+    refreshUnreadCount();
+  }
+
+  async function refreshUnreadCount() {
+    const sb = client();
+    if (!sb || !currentUser) return;
+    const { count } = await sb
+      .from("notifications")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", currentUser.id)
+      .eq("is_read", false);
+    const badge = document.getElementById("es-notif-badge");
+    if (!badge) return;
+    if (count && count > 0) {
+      badge.textContent = count > 9 ? "9+" : String(count);
+      badge.classList.remove("es-hidden");
+    } else {
+      badge.classList.add("es-hidden");
+    }
+  }
+
+  async function loadNotifications() {
+    const listEl = document.getElementById("es-notif-list");
+    if (!listEl) return;
+    listEl.innerHTML = `<div class="es-skeleton" style="height:60px;margin:8px;"></div>`;
+    const sb = client();
+    const { data, error } = await sb
+      .from("notifications")
+      .select("id, type, payload, is_read, created_at")
+      .eq("user_id", currentUser.id)
+      .order("created_at", { ascending: false })
+      .limit(20);
+    if (error || !data || !data.length) {
+      listEl.innerHTML = `<div class="es-notif__empty" data-i18n="notifications.empty">No notifications yet.</div>`;
+      window.i18n && window.i18n.apply(listEl);
+      return;
+    }
+    listEl.innerHTML = "";
+    data.forEach((n) => {
+      const textKey =
+        n.type === "approved" ? "notifications.submission_approved" :
+        n.type === "rejected" ? "notifications.submission_rejected" :
+        n.type === "changes_requested" ? "notifications.changes_requested" :
+        n.type === "hidden" ? "notifications.presentation_hidden" :
+        "notifications.submission_received";
+      const title = (n.payload && n.payload.title) || "";
+      const text = window.i18n.t(textKey, { title });
+      const item = document.createElement("div");
+      item.className = "es-notif__item" + (n.is_read ? "" : " es-notif__item--unread");
+      item.innerHTML = `<p>${text}</p><time>${new Date(n.created_at).toLocaleDateString()}</time>`;
+      item.addEventListener("click", async () => {
+        if (!n.is_read) {
+          await client().from("notifications").update({ is_read: true }).eq("id", n.id);
+          refreshUnreadCount();
+        }
+        if (n.payload && n.payload.presentation_id) {
+          window.location.href = `presentation.html?id=${n.payload.presentation_id}`;
+        }
+      });
+      listEl.appendChild(item);
+    });
+  }
+
+  async function markAllNotificationsRead() {
+    const sb = client();
+    if (!sb || !currentUser) return;
+    await sb.from("notifications").update({ is_read: true }).eq("user_id", currentUser.id).eq("is_read", false);
+    refreshUnreadCount();
+    loadNotifications();
   }
 
   /**

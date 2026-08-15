@@ -69,6 +69,7 @@ window.ExpoShare.whenReady(async function () {
     });
 
     renderOwnPresentations(sb, window.ExpoShareAuth.user().id);
+    renderOwnMessages(sb, window.ExpoShareAuth.user().id);
   }
 
   /* ------------------------------------------------------------ Public view */
@@ -79,7 +80,7 @@ window.ExpoShare.whenReady(async function () {
     if (!username) return;
     const { data: prof, error } = await sb
       .from("profiles")
-      .select("username, display_name, bio, institution, avatar_url, country, website, linkedin")
+      .select("id, username, display_name, bio, institution, avatar_url, country, website, linkedin")
       .eq("username", username)
       .single();
     if (error || !prof) {
@@ -95,19 +96,34 @@ window.ExpoShare.whenReady(async function () {
     if (ogTitleEl) ogTitleEl.setAttribute("content", `${publicName} | ExpoShare`);
     if (twTitleEl) twTitleEl.setAttribute("content", `${publicName} | ExpoShare`);
     document.getElementById("es-pp-bio").textContent = prof.bio || "";
-    document.getElementById("es-pp-institution").textContent = prof.institution || "";
+
+    const institutionParts = [prof.institution, prof.country].filter(Boolean).join(" · ");
+    document.getElementById("es-pp-institution").textContent = institutionParts;
+
     const avatarEl = document.getElementById("es-pp-avatar");
     if (avatarEl && prof.avatar_url) {
       const { data } = sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.avatars).getPublicUrl(prof.avatar_url);
       avatarEl.src = data.publicUrl;
     }
 
+    const linksEl = document.getElementById("es-pp-links");
+    if (linksEl) {
+      const links = [];
+      if (prof.website) links.push({ href: normalizeUrl(prof.website), label: window.i18n.t("profile.website") });
+      if (prof.linkedin) links.push({ href: normalizeUrl(prof.linkedin), label: window.i18n.t("profile.linkedin") });
+      linksEl.innerHTML = links
+        .map((l) => `<a class="es-btn es-btn--ghost es-btn--sm" href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
+        .join("");
+    }
+
+    await renderRating(sb, prof.id);
+
     const { data: rows } = await sb
       .from("presentations")
       .select("id, title, field_id, cover_path, format")
       .eq("status", "approved")
       .eq("is_anonymous", false)
-      .eq("owner_id", await ownerIdFromUsername(sb, username))
+      .eq("owner_id", prof.id)
       .order("created_at", { ascending: false });
 
     const listEl = document.getElementById("es-pp-presentations");
@@ -126,10 +142,94 @@ window.ExpoShare.whenReady(async function () {
     }
   }
 
-  async function ownerIdFromUsername(sb, username) {
-    const { data } = await sb.from("profiles").select("id").eq("username", username).single();
-    return data ? data.id : null;
+  function normalizeUrl(url) {
+    return /^https?:\/\//i.test(url) ? url : `https://${url}`;
   }
+
+  /* -------------------------------------------------------------- Ratings */
+
+  function renderStars(container, value, { interactive = false, onRate = null } = {}) {
+    container.innerHTML = "";
+    container.classList.toggle("es-stars--interactive", interactive);
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement("span");
+      star.className = "es-stars__star" + (i <= Math.round(value) ? " is-filled" : "");
+      star.textContent = "★";
+      star.dataset.value = i;
+      if (interactive) {
+        star.addEventListener("mouseenter", () => highlightStars(container, i));
+        star.addEventListener("mouseleave", () => highlightStars(container, Math.round(value)));
+        star.addEventListener("click", () => onRate && onRate(i));
+      }
+      container.appendChild(star);
+    }
+  }
+
+  function highlightStars(container, upTo) {
+    container.querySelectorAll(".es-stars__star").forEach((el) => {
+      el.classList.toggle("is-hover", Number(el.dataset.value) <= upTo);
+    });
+  }
+
+  async function renderRating(sb, profileId) {
+    const starsEl = document.getElementById("es-pp-rating-stars");
+    const countEl = document.getElementById("es-pp-rating-count");
+    const widgetEl = document.getElementById("es-pp-rate-widget");
+    if (!starsEl) return;
+
+    const { data: summary } = await sb
+      .from("profile_rating_summary")
+      .select("average_rating, rating_count")
+      .eq("profile_id", profileId)
+      .maybeSingle();
+
+    const avg = summary ? Number(summary.average_rating) : 0;
+    const count = summary ? summary.rating_count : 0;
+
+    renderStars(starsEl, avg);
+    countEl.textContent = count
+      ? window.i18n.t(count === 1 ? "profile.rating_count_one" : "profile.rating_count_other", { count })
+      : window.i18n.t("profile.no_ratings_yet");
+
+    if (!widgetEl) return;
+    const currentUser = window.ExpoShareAuth.user();
+    if (!currentUser) {
+      widgetEl.innerHTML = `<p class="es-field__hint">${window.i18n.t("profile.sign_in_to_rate")}</p>`;
+      return;
+    }
+    if (currentUser.id === profileId) {
+      return; // can't rate your own profile; leave widget empty
+    }
+
+    const { data: existing } = await sb
+      .from("profile_ratings")
+      .select("rating")
+      .eq("rater_id", currentUser.id)
+      .eq("ratee_id", profileId)
+      .maybeSingle();
+
+    widgetEl.innerHTML = `
+      <p class="es-field__hint">${window.i18n.t("profile.rate_contributor")}</p>
+      <span class="es-stars" id="es-pp-rate-stars"></span>
+    `;
+    const rateStars = document.getElementById("es-pp-rate-stars");
+    renderStars(rateStars, existing ? existing.rating : 0, {
+      interactive: true,
+      onRate: async (value) => {
+        try {
+          const { error } = await sb
+            .from("profile_ratings")
+            .upsert({ rater_id: currentUser.id, ratee_id: profileId, rating: value, updated_at: new Date().toISOString() }, { onConflict: "rater_id,ratee_id" });
+          if (error) throw error;
+          window.ExpoShare.toast(window.i18n.t("profile.rating_saved"), { type: "success" });
+          await renderRating(sb, profileId);
+        } catch (err) {
+          window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+        }
+      }
+    });
+  }
+
 
   async function renderOwnPresentations(sb, userId) {
     const listEl = document.getElementById("es-profile-presentations");
@@ -155,6 +255,43 @@ window.ExpoShare.whenReady(async function () {
           <span class="es-badge es-badge--status-${r.status}">${window.i18n.t("admin.status_" + r.status)}</span>
         </div>`;
       listEl.appendChild(row);
+    });
+  }
+
+  async function renderOwnMessages(sb, userId) {
+    const listEl = document.getElementById("es-profile-messages");
+    if (!listEl) return;
+    const { data, error } = await sb
+      .from("contact_messages")
+      .select("id, category, message, admin_reply, status, created_at, replied_at")
+      .eq("sender_id", userId)
+      .order("created_at", { ascending: false });
+    if (error || !data || !data.length) {
+      listEl.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p data-i18n="contact.no_messages_yet"></p></div>`;
+      window.i18n.apply(listEl);
+      return;
+    }
+    listEl.innerHTML = "";
+    data.forEach((m) => {
+      const card = document.createElement("div");
+      card.className = "es-card";
+      card.style.marginBottom = "12px";
+      const statusKey = m.status === "resolved" ? "contact.status_resolved" : "contact.status_open";
+      card.innerHTML = `
+        <div class="es-card__body">
+          <div class="es-card__eyebrow">${window.i18n.t("contact.form_category_" + m.category)} &middot; ${new Date(m.created_at).toLocaleDateString()}</div>
+          <p>${escapeHtml(m.message)}</p>
+          <span class="es-badge es-badge--status-${m.status === "resolved" ? "approved" : "pending"}">${window.i18n.t(statusKey)}</span>
+          ${
+            m.admin_reply
+              ? `<div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--candy-08);">
+                   <div class="es-card__eyebrow">${window.i18n.t("contact.reply_from_admin")}</div>
+                   <p>${escapeHtml(m.admin_reply)}</p>
+                 </div>`
+              : ""
+          }
+        </div>`;
+      listEl.appendChild(card);
     });
   }
 

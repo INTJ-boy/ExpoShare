@@ -278,6 +278,108 @@ img { max-width: 100%; display: block; }
 .es-lang-switch__menu button:hover { background: var(--candy-08); color: var(--text-primary); }
 .es-lang-switch__menu button.is-active { color: var(--candy); }
 
+/* --------------------------------------------------------- Notification bell */
+
+.es-notif { position: relative; }
+.es-notif__toggle {
+  position: relative;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--candy-08);
+  border: 1px solid var(--candy-14);
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.es-notif__toggle:hover { background: var(--candy-14); border-color: var(--candy-33); }
+.es-notif__badge {
+  position: absolute; top: -4px; right: -4px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--danger); color: var(--onyx);
+  font-size: 0.62rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.es-notif__panel {
+  position: absolute; top: calc(100% + 8px); inset-inline-end: 0;
+  width: 320px; max-height: 420px; overflow-y: auto;
+  background: var(--onyx-3);
+  border: 1px solid var(--candy-14);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: all var(--dur-fast) var(--ease);
+  z-index: 90;
+}
+.es-notif--open .es-notif__panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.es-notif__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; border-bottom: 1px solid var(--candy-08);
+  font-size: 0.82rem; font-weight: 600; color: var(--text-primary);
+  position: sticky; top: 0; background: var(--onyx-3);
+}
+.es-notif__mark-all {
+  background: none; border: none; color: var(--candy);
+  font-size: 0.72rem; cursor: pointer; padding: 0;
+}
+.es-notif__list { padding: 6px; }
+.es-notif__item {
+  padding: 10px 10px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: background var(--dur-fast) var(--ease);
+}
+.es-notif__item:hover { background: var(--candy-08); }
+.es-notif__item--unread { background: var(--candy-08); }
+.es-notif__item p { margin: 0 0 4px; font-size: 0.82rem; color: var(--text-primary); }
+.es-notif__item time { font-size: 0.68rem; color: var(--text-muted); }
+.es-notif__empty { padding: 24px 14px; text-align: center; font-size: 0.82rem; color: var(--text-muted); }
+
+@media (max-width: 480px) {
+  .es-notif__panel { width: min(320px, calc(100vw - 32px)); }
+}
+
+/* ------------------------------------------------------------- Star rating */
+
+.es-stars {
+  display: inline-flex; gap: 3px; direction: ltr; /* keep star order LTR even in RTL layouts */
+}
+.es-stars__star {
+  font-size: 1.3rem; line-height: 1; color: var(--candy-14);
+  cursor: default; user-select: none;
+}
+.es-stars--interactive .es-stars__star { cursor: pointer; transition: color var(--dur-fast) var(--ease); }
+.es-stars--interactive .es-stars__star:hover,
+.es-stars--interactive .es-stars__star.is-hover { color: var(--candy-80); }
+.es-stars__star.is-filled { color: var(--candy); }
+.es-rating-summary { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+.es-rating-summary__count { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ------------------------------------------------------------- Donation */
+
+.es-donation-trigger {
+  background: none; border: none; color: var(--text-secondary);
+  font-size: 0.78rem; cursor: pointer; padding: 0;
+  transition: color var(--dur-fast) var(--ease);
+}
+.es-donation-trigger:hover { color: var(--candy); }
+.es-donation-quote {
+  border-inline-start: 2px solid var(--candy-33);
+  padding-inline-start: 14px; margin: 16px 0;
+}
+.es-donation-quote__arabic { font-size: 1.05rem; line-height: 1.9; color: var(--candy); margin-bottom: 8px; direction: rtl; }
+.es-donation-quote__translation { font-size: 0.86rem; color: var(--text-secondary); font-style: italic; }
+.es-donation-quote__ref { font-size: 0.74rem; color: var(--text-muted); margin-top: 4px; }
+.es-donation-field {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--candy-08);
+  font-size: 0.86rem;
+}
+.es-donation-field:last-child { border-bottom: none; }
+.es-donation-field__label { color: var(--text-muted); }
+.es-donation-field__value { color: var(--text-primary); font-family: var(--font-mono); cursor: pointer; }
+.es-donation-field__value:hover { color: var(--candy); }
+
 /* ------------------------------------------------------------------ Buttons */
 
 .es-btn {

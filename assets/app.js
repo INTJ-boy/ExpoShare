@@ -338,9 +338,81 @@ window.ExpoShare = (function () {
 
   function markReady() {
     isReady = true;
+    insertDonationTrigger();
     readyQueue.splice(0).forEach((fn) => {
       try { fn(); } catch (e) { console.error(e); }
     });
+  }
+
+  /* ------------------------------------------------------------- Donation */
+
+  /**
+   * Injects a small "Support ExpoShare" link into the footer (if the
+   * page has one) that opens a modal with a Quran verse and the
+   * donor's CCP/BaridiMob details. Click-to-copy on each field. Works
+   * for logged-in and logged-out visitors alike -- this is intentionally
+   * not gated behind auth.
+   */
+  function insertDonationTrigger() {
+    const footerBottom = document.querySelector(".es-footer__bottom");
+    if (!footerBottom || document.getElementById("es-donation-trigger")) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "es-donation-trigger";
+    btn.className = "es-donation-trigger";
+    btn.setAttribute("data-i18n", "donation.cta");
+    btn.textContent = (window.i18n && window.i18n.t("donation.cta")) || "Support ExpoShare";
+    footerBottom.insertBefore(btn, footerBottom.firstChild);
+
+    btn.addEventListener("click", () => openDonationModal());
+  }
+
+  function openDonationModal() {
+    const t = (k, v) => (window.i18n ? window.i18n.t(k, v) : k);
+    const fields = [
+      { label: t("donation.name_label"), value: "Zekraoui, Rabah Allaa Eddine" },
+      { label: t("donation.ccp_label"), value: "0040145075 (Key 84)" },
+      { label: t("donation.baridimob_label"), value: "00799999004014507584" }
+    ];
+    const bodyHtml = `
+      <p>${t("donation.intro")}</p>
+      <div class="es-donation-quote">
+        <div class="es-donation-quote__arabic">${t("donation.quote_arabic")}</div>
+        <div class="es-donation-quote__translation">${t("donation.quote_translation")}</div>
+        <div class="es-donation-quote__ref">${t("donation.quote_reference")}</div>
+      </div>
+      <div>
+        ${fields
+          .map(
+            (f) => `
+          <div class="es-donation-field">
+            <span class="es-donation-field__label">${f.label}</span>
+            <span class="es-donation-field__value" data-copy="${f.value}">${f.value}</span>
+          </div>`
+          )
+          .join("")}
+      </div>
+    `;
+    openModal({
+      title: t("donation.title"),
+      bodyHtml,
+      actions: [{ label: t("buttons.close"), value: null, variant: "ghost" }]
+    }).then(() => {});
+
+    // Wire click-to-copy after the modal is in the DOM.
+    setTimeout(() => {
+      document.querySelectorAll("[data-copy]").forEach((el) => {
+        el.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(el.getAttribute("data-copy"));
+            toast(t("donation.copied"), { type: "success" });
+          } catch (e) {
+            /* clipboard API unavailable; silently ignore */
+          }
+        });
+      });
+    }, 0);
   }
 
   function whenReady(fn) {
