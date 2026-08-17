@@ -83,6 +83,11 @@
           <div class="es-field" style="flex:1; min-width:160px;"><label data-i18n="profile.linkedin">LinkedIn</label><input class="es-input" id="es-profile-linkedin" type="url" /></div>
         </div>
         <div class="es-field">
+          <label data-i18n="profile.hobbies">Hobbies</label>
+          <input class="es-input" id="es-profile-hobbies-input" type="text" data-i18n-placeholder="profile.hobbies_hint" placeholder="Press Enter to add a hobby" />
+          <div class="es-tags-input-row" id="es-profile-hobbies-list"></div>
+        </div>
+        <div class="es-field">
           <label data-i18n="profile.preferred_language">Preferred language</label>
           <select class="es-select" id="es-profile-preferred_language">
             <option value="en">English</option>
@@ -95,6 +100,9 @@
 
       <div class="es-section__head"><h2 data-i18n="profile.approved_presentations">Approved presentations</h2></div>
       <div id="es-profile-presentations"></div>
+
+      <div class="es-section__head" style="margin-top:32px;"><h2 data-i18n="profile.bookmarks_title">Bookmarks</h2></div>
+      <div class="es-grid" id="es-profile-bookmarks"></div>
 
       <div class="es-section__head" style="margin-top:32px;"><h2 data-i18n="contact.your_messages_title">Your messages</h2></div>
       <div id="es-profile-messages"></div>

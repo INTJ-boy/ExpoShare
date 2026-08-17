@@ -145,21 +145,27 @@
     ? sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.covers).getPublicUrl(row.cover_path).data.publicUrl
     : window.ExpoShare.generateFallbackCover({ title: row.title, field: field ? label(taxonomy.fields, row.field_id) : row.field_id, format: row.format });
 
-  const authorLabel = row.is_anonymous
-    ? window.i18n.t("presentation.anonymous")
-    : window.i18n.t("presentation.by", { author: (row.owner && (row.owner.display_name || row.owner.username)) || "" });
+  const authorHtml = row.is_anonymous
+    ? escapeHtml(window.i18n.t("presentation.anonymous"))
+    : row.owner && row.owner.username
+    ? `<a href="public-profile.html?username=${encodeURIComponent(row.owner.username)}" class="es-author-link">${escapeHtml(window.i18n.t("presentation.by", { author: row.owner.display_name || row.owner.username }))}</a>`
+    : escapeHtml(window.i18n.t("presentation.by", { author: "" }));
 
   root.innerHTML = `
-    <div class="es-card__cover" style="border-radius:22px; margin-bottom:24px;">
-      <img src="${coverUrl}" alt="${escapeHtml(row.title)}" style="border-radius:22px;" />
+    <div id="es-pres-preview" class="es-preview" style="margin-bottom:24px;">
+      <div class="es-card__cover" style="border-radius:22px;">
+        <img src="${coverUrl}" alt="${escapeHtml(row.title)}" style="border-radius:22px;" />
+      </div>
     </div>
     <div class="es-card__eyebrow">${escapeHtml(label(taxonomy.fields, row.field_id))}${discipline ? " · " + escapeHtml(label(field.disciplines, row.discipline_id)) : ""}</div>
     <h1>${escapeHtml(row.title)}</h1>
-    <p class="es-muted">${escapeHtml(authorLabel)}</p>
+    <p class="es-muted">${authorHtml}</p>
     <div class="es-card__meta es-mt-24" style="margin-bottom:20px;">
       <span class="es-badge">${(row.format || "").toUpperCase()}</span>
       <span class="es-badge">${row.language ? row.language.toUpperCase() : ""}</span>
       ${row.slide_count ? `<span class="es-badge">${row.slide_count} ${window.i18n.t("presentation.slides")}</span>` : ""}
+      <span class="es-badge" id="es-pres-views">${window.i18n.t("presentation.views", { count: row.view_count || 0 })}</span>
+      <span class="es-badge" id="es-pres-downloads">${window.i18n.t("presentation.downloads", { count: row.download_count || 0 })}</span>
     </div>
     <p>${escapeHtml(row.description || "")}</p>
     <div class="es-flex es-gap-8 es-flex-wrap" style="margin:20px 0;">
@@ -167,20 +173,175 @@
     </div>
     <div class="es-flex es-gap-12 es-flex-wrap">
       <button class="es-btn es-btn--primary" id="es-pres-download">${window.i18n.t("presentation.download_file")}</button>
+      <button class="es-btn es-btn--ghost" id="es-pres-bookmark">${window.i18n.t("presentation.bookmark_add")}</button>
+      <button class="es-btn es-btn--ghost" id="es-pres-share">${window.i18n.t("presentation.share")}</button>
       <button class="es-btn es-btn--ghost" id="es-pres-report">${window.i18n.t("buttons.report")}</button>
     </div>
-    <p class="es-field__hint es-mt-24" data-i18n="presentation.no_preview">Live preview isn't available for this format. Download the file to view it.</p>
+
+    <div class="es-section__head" style="margin-top:48px;"><h2 data-i18n="presentation.related_title">Related presentations</h2></div>
+    <div class="es-grid" id="es-pres-related"></div>
   `;
+
+  renderPreview(row);
+  incrementViewCount(row.id);
+  initBookmark(row.id);
+  loadRelated(row);
 
   document.getElementById("es-pres-download").addEventListener("click", async () => {
     try {
       const { data, error } = await sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.presentations).createSignedUrl(row.file_path, 60);
       if (error) throw error;
       window.open(data.signedUrl, "_blank", "noopener");
+      sb.rpc("increment_download_count", { presentation_id: row.id }).then(() => {
+        const el = document.getElementById("es-pres-downloads");
+        if (el) el.textContent = window.i18n.t("presentation.downloads", { count: (row.download_count || 0) + 1 });
+        row.download_count = (row.download_count || 0) + 1;
+      });
     } catch (err) {
       window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
     }
   });
+
+  document.getElementById("es-pres-share").addEventListener("click", async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: row.title, url });
+        return;
+      } catch (e) {
+        /* user cancelled the native share sheet; fall through to copy */
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      window.ExpoShare.toast(window.i18n.t("presentation.link_copied"), { type: "success" });
+    } catch (e) {
+      /* clipboard API unavailable; silently ignore */
+    }
+  });
+
+  /* ------------------------------------------------------------- Preview */
+
+  function renderPreview(row) {
+    const wrap = document.getElementById("es-pres-preview");
+    if (row.format !== "pdf" && row.format !== "ppt" && row.format !== "pptx") return;
+
+    wrap.innerHTML = `<div class="es-skeleton" style="height:520px; border-radius:22px;"></div>`;
+
+    sb.storage
+      .from(window.EXPOSHARE_CONFIG.BUCKETS.presentations)
+      .createSignedUrl(row.file_path, 3600)
+      .then(({ data, error }) => {
+        if (error || !data) {
+          wrap.innerHTML = `<p class="es-field__hint" data-i18n="presentation.no_preview">${window.i18n.t("presentation.no_preview")}</p>`;
+          return;
+        }
+        if (row.format === "pdf") {
+          wrap.innerHTML = `<iframe src="${data.signedUrl}" class="es-preview__frame" title="${escapeHtml(row.title)}"></iframe>`;
+        } else {
+          // PPT/PPTX: no native browser renderer exists, so this embeds
+          // Google's public document viewer pointed at our short-lived
+          // signed URL. It's a genuine live preview, not a fake one --
+          // but it depends on a third-party service and can be slow or
+          // blocked by some browsers, hence the hint below it.
+          const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(data.signedUrl)}&embedded=true`;
+          wrap.innerHTML = `
+            <iframe src="${viewerUrl}" class="es-preview__frame" title="${escapeHtml(row.title)}"></iframe>
+            <p class="es-field__hint" style="margin-top:10px;">${window.i18n.t("presentation.preview_unavailable_office")}</p>
+          `;
+        }
+      });
+  }
+
+  /* --------------------------------------------------------------- Views */
+
+  function incrementViewCount(id) {
+    // Best-effort; not awaited, never blocks rendering. De-duplicated
+    // per browser tab via sessionStorage so refreshing doesn't inflate
+    // the count on every reload.
+    const key = `es_viewed_${id}`;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+    sb.rpc("increment_view_count", { presentation_id: id }).catch(() => {});
+  }
+
+  /* ----------------------------------------------------------- Bookmarks */
+
+  async function initBookmark(presentationId) {
+    const btn = document.getElementById("es-pres-bookmark");
+    if (!btn) return;
+    const user = window.ExpoShareAuth.user();
+
+    let bookmarked = false;
+    if (user) {
+      const { data } = await sb
+        .from("bookmarks")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("presentation_id", presentationId)
+        .maybeSingle();
+      bookmarked = !!data;
+      setBookmarkLabel(btn, bookmarked);
+    }
+
+    btn.addEventListener("click", async () => {
+      const current = window.ExpoShareAuth.user();
+      if (!current) {
+        window.ExpoShare.toast(window.i18n.t("presentation.sign_in_to_bookmark"), { type: "info" });
+        window.location.href = "login.html";
+        return;
+      }
+      try {
+        if (bookmarked) {
+          await sb.from("bookmarks").delete().eq("user_id", current.id).eq("presentation_id", presentationId);
+          bookmarked = false;
+          window.ExpoShare.toast(window.i18n.t("presentation.bookmark_removed"), { type: "success" });
+        } else {
+          await sb.from("bookmarks").insert({ user_id: current.id, presentation_id: presentationId });
+          bookmarked = true;
+          window.ExpoShare.toast(window.i18n.t("presentation.bookmark_added"), { type: "success" });
+        }
+        setBookmarkLabel(btn, bookmarked);
+      } catch (err) {
+        window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
+      }
+    });
+  }
+
+  function setBookmarkLabel(btn, bookmarked) {
+    btn.textContent = window.i18n.t(bookmarked ? "presentation.bookmark_remove" : "presentation.bookmark_add");
+    btn.classList.toggle("es-btn--primary", bookmarked);
+    btn.classList.toggle("es-btn--ghost", !bookmarked);
+  }
+
+  /* -------------------------------------------------------------- Related */
+
+  async function loadRelated(row) {
+    const el = document.getElementById("es-pres-related");
+    if (!el) return;
+    const { data } = await sb
+      .from("presentations")
+      .select("id, title, field_id, format, cover_path")
+      .eq("status", "approved")
+      .eq("field_id", row.field_id)
+      .neq("id", row.id)
+      .limit(4);
+    if (!data || !data.length) {
+      el.parentElement.classList.add("es-hidden");
+      return;
+    }
+    el.innerHTML = "";
+    data.forEach((r) => {
+      const cover = r.cover_path
+        ? sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.covers).getPublicUrl(r.cover_path).data.publicUrl
+        : window.ExpoShare.generateFallbackCover({ title: r.title, field: label(taxonomy.fields, r.field_id), format: r.format });
+      const a = document.createElement("a");
+      a.href = `presentation.html?id=${r.id}`;
+      a.className = "es-card";
+      a.innerHTML = `<div class="es-card__cover"><img src="${cover}" alt="${escapeHtml(r.title)}" loading="lazy"/></div><div class="es-card__body"><div class="es-card__title">${escapeHtml(r.title)}</div></div>`;
+      el.appendChild(a);
+    });
+  }
 
   document.getElementById("es-pres-report").addEventListener("click", async () => {
     const categories = ["copyright", "incorrect", "spam", "inappropriate", "wrong_category", "misleading", "duplicate", "other"];

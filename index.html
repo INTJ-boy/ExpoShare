@@ -174,9 +174,14 @@
   await window.ExpoShareAuth.init();
   window.ExpoShare.markReady();
   window.ExpoShare.initMobileNav();
-  window.ExpoShare.initExpandingSearch({
-    onSearch: (val) => { if (val) window.location.href = `browse.html?q=${encodeURIComponent(val)}`; }
-  });
+  window.ExpoShare.initExpandingSearch({ suggest: true });
+  const homeSearchInput = document.getElementById("es-search-input");
+  homeSearchInput &&
+    homeSearchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && homeSearchInput.value.trim()) {
+        window.location.href = `browse.html?q=${encodeURIComponent(homeSearchInput.value.trim())}`;
+      }
+    });
   window.ExpoShare.runLoadingSequence();
 
   // Socials
