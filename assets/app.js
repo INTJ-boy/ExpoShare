@@ -424,27 +424,55 @@ window.ExpoShare = (function () {
    * the bottom credit bar. Placeholder entries until the real links are
    * ready -- shown as disabled "Coming soon" chips.
    */
+  /* -------------------------------------------------------- Other websites */
+
+  /**
+   * EDIT THIS LIST when you have real links ready. Leave `url` empty
+   * to keep showing "Coming soon" for that slot; fill it in (must
+   * start with http:// or https://) and it automatically becomes a
+   * real clickable link, no other code changes needed.
+   */
+  const OTHER_WEBSITES = [
+    { name: "Website 1", url: "" },
+    { name: "Website 2", url: "" },
+    { name: "Website 3", url: "" },
+    { name: "Website 4", url: "" },
+    { name: "Website 5", url: "" },
+    { name: "Website 6", url: "" },
+    { name: "Website 7", url: "" }
+  ];
+
+  /**
+   * Injects a "Visit our other websites" block into the footer, above
+   * the bottom credit bar. Placeholder entries until the real links are
+   * ready -- shown as disabled "Coming soon" chips (see OTHER_WEBSITES
+   * above).
+   */
   function insertOtherWebsitesSection() {
     const footerBottom = document.querySelector(".es-footer__bottom");
     if (!footerBottom || !footerBottom.parentElement || document.getElementById("es-other-sites")) return;
 
     const t = (k) => (window.i18n ? window.i18n.t(k) : k);
-    const count = 7;
     const section = document.createElement("div");
     section.id = "es-other-sites";
     section.className = "es-other-sites";
     section.innerHTML = `
       <h4 data-i18n="footer.other_websites_title">${t("footer.other_websites_title")}</h4>
       <div class="es-other-sites__grid">
-        ${Array.from({ length: count })
-          .map(
-            (_, i) => `
+        ${OTHER_WEBSITES.map((site) => {
+          const hasUrl = /^https?:\/\//i.test(site.url || "");
+          if (hasUrl) {
+            return `
+          <a class="es-other-sites__item es-other-sites__item--live" href="${site.url}" target="_blank" rel="noopener noreferrer">
+            <span class="es-other-sites__name">${site.name}</span>
+          </a>`;
+          }
+          return `
           <span class="es-other-sites__item" aria-disabled="true">
-            <span class="es-other-sites__name">Website ${i + 1}</span>
+            <span class="es-other-sites__name">${site.name}</span>
             <span class="es-other-sites__badge" data-i18n="footer.coming_soon">${t("footer.coming_soon")}</span>
-          </span>`
-          )
-          .join("")}
+          </span>`;
+        }).join("")}
       </div>
     `;
     footerBottom.parentElement.insertBefore(section, footerBottom);
