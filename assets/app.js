@@ -159,11 +159,18 @@ window.ExpoShare = (function () {
 
   /* -------------------------------------------------------- Expanding search */
 
-  function initExpandingSearch({ inputId = "es-search-input", toggleId = "es-search-toggle", onSearch } = {}) {
+  function initExpandingSearch({ inputId = "es-search-input", toggleId = "es-search-toggle", onSearch, suggest = false } = {}) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
     const wrap = input ? input.closest(".es-search") : null;
     if (!wrap) return;
+
+    let suggestPanel = null;
+    if (suggest) {
+      suggestPanel = document.createElement("div");
+      suggestPanel.className = "es-search__suggest";
+      wrap.appendChild(suggestPanel);
+    }
 
     function expand() {
       wrap.classList.add("es-search--expanded");
@@ -172,6 +179,7 @@ window.ExpoShare = (function () {
     function collapse() {
       if (document.activeElement === input && input.value) return;
       wrap.classList.remove("es-search--expanded");
+      if (suggestPanel) suggestPanel.classList.remove("es-search__suggest--open");
     }
 
     toggle && toggle.addEventListener("click", () => {
@@ -190,11 +198,51 @@ window.ExpoShare = (function () {
       }
     });
 
-    if (onSearch) {
+    async function runSuggestions(q) {
+      if (!suggestPanel) return;
+      if (!q) {
+        suggestPanel.classList.remove("es-search__suggest--open");
+        return;
+      }
+      const sb = window.getSupabaseClient && window.getSupabaseClient();
+      if (!sb) return;
+      const { data } = await sb
+        .from("presentations")
+        .select("id, title, format")
+        .eq("status", "approved")
+        .ilike("title", `%${q}%`)
+        .limit(5);
+      if (!data || !data.length) {
+        suggestPanel.classList.remove("es-search__suggest--open");
+        return;
+      }
+      suggestPanel.innerHTML = data
+        .map(
+          (r) =>
+            `<a href="presentation.html?id=${r.id}" class="es-search__suggest-item">
+               <span>${escapeSuggestHtml(r.title)}</span>
+               <span class="es-search__suggest-format">${(r.format || "").toUpperCase()}</span>
+             </a>`
+        )
+        .join("");
+      suggestPanel.classList.add("es-search__suggest--open");
+    }
+
+    function escapeSuggestHtml(s) {
+      const div = document.createElement("div");
+      div.textContent = s || "";
+      return div.innerHTML;
+    }
+
+    if (onSearch || suggest) {
       let debounceTimer;
       input.addEventListener("input", () => {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => onSearch(input.value.trim()), 220);
+        debounceTimer = setTimeout(() => {
+          const val = input.value.trim();
+          if (onSearch) onSearch(val);
+          if (suggest) runSuggestions(val);
+        }, 220);
       });
     }
   }
@@ -339,6 +387,7 @@ window.ExpoShare = (function () {
   function markReady() {
     isReady = true;
     insertDonationTrigger();
+    insertOtherWebsitesSection();
     readyQueue.splice(0).forEach((fn) => {
       try { fn(); } catch (e) { console.error(e); }
     });
@@ -366,6 +415,39 @@ window.ExpoShare = (function () {
     footerBottom.insertBefore(btn, footerBottom.firstChild);
 
     btn.addEventListener("click", () => openDonationModal());
+  }
+
+  /* -------------------------------------------------------- Other websites */
+
+  /**
+   * Injects a "Visit our other websites" block into the footer, above
+   * the bottom credit bar. Placeholder entries until the real links are
+   * ready -- shown as disabled "Coming soon" chips.
+   */
+  function insertOtherWebsitesSection() {
+    const footerBottom = document.querySelector(".es-footer__bottom");
+    if (!footerBottom || !footerBottom.parentElement || document.getElementById("es-other-sites")) return;
+
+    const t = (k) => (window.i18n ? window.i18n.t(k) : k);
+    const count = 7;
+    const section = document.createElement("div");
+    section.id = "es-other-sites";
+    section.className = "es-other-sites";
+    section.innerHTML = `
+      <h4 data-i18n="footer.other_websites_title">${t("footer.other_websites_title")}</h4>
+      <div class="es-other-sites__grid">
+        ${Array.from({ length: count })
+          .map(
+            (_, i) => `
+          <span class="es-other-sites__item" aria-disabled="true">
+            <span class="es-other-sites__name">Website ${i + 1}</span>
+            <span class="es-other-sites__badge" data-i18n="footer.coming_soon">${t("footer.coming_soon")}</span>
+          </span>`
+          )
+          .join("")}
+      </div>
+    `;
+    footerBottom.parentElement.insertBefore(section, footerBottom);
   }
 
   function openDonationModal() {

@@ -26,6 +26,38 @@ window.ExpoShare.whenReady(async function () {
       avatarPreview.src = data.publicUrl;
     }
 
+    let hobbies = Array.isArray(profile.interests) ? profile.interests.slice() : [];
+    const hobbiesInput = document.getElementById("es-profile-hobbies-input");
+    const hobbiesList = document.getElementById("es-profile-hobbies-list");
+    function renderHobbies() {
+      if (!hobbiesList) return;
+      hobbiesList.innerHTML = "";
+      hobbies.forEach((h, i) => {
+        const chip = document.createElement("span");
+        chip.className = "es-badge";
+        chip.style.cursor = "pointer";
+        chip.textContent = `${h} ×`;
+        chip.addEventListener("click", () => {
+          hobbies.splice(i, 1);
+          renderHobbies();
+        });
+        hobbiesList.appendChild(chip);
+      });
+    }
+    renderHobbies();
+    hobbiesInput &&
+      hobbiesInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const val = hobbiesInput.value.trim();
+          if (val && !hobbies.includes(val) && hobbies.length < 15) {
+            hobbies.push(val);
+            renderHobbies();
+          }
+          hobbiesInput.value = "";
+        }
+      });
+
     let newAvatarFile = null;
     const avatarInput = document.getElementById("es-profile-avatar-input");
     avatarInput &&
@@ -53,7 +85,7 @@ window.ExpoShare.whenReady(async function () {
           if (upErr) throw upErr;
           avatarPath = path;
         }
-        const updates = { avatar_url: avatarPath, updated_at: new Date().toISOString() };
+        const updates = { avatar_url: avatarPath, interests: hobbies, updated_at: new Date().toISOString() };
         fields.forEach((f) => {
           const el = document.getElementById(`es-profile-${f}`);
           if (el) updates[f] = el.value.trim() || null;
@@ -70,6 +102,7 @@ window.ExpoShare.whenReady(async function () {
 
     renderOwnPresentations(sb, window.ExpoShareAuth.user().id);
     renderOwnMessages(sb, window.ExpoShareAuth.user().id);
+    renderOwnBookmarks(sb, window.ExpoShareAuth.user().id);
   }
 
   /* ------------------------------------------------------------ Public view */
@@ -80,7 +113,7 @@ window.ExpoShare.whenReady(async function () {
     if (!username) return;
     const { data: prof, error } = await sb
       .from("profiles")
-      .select("id, username, display_name, bio, institution, avatar_url, country, website, linkedin")
+      .select("id, username, display_name, bio, institution, avatar_url, country, website, linkedin, interests")
       .eq("username", username)
       .single();
     if (error || !prof) {
@@ -99,6 +132,11 @@ window.ExpoShare.whenReady(async function () {
 
     const institutionParts = [prof.institution, prof.country].filter(Boolean).join(" · ");
     document.getElementById("es-pp-institution").textContent = institutionParts;
+
+    const hobbiesEl = document.getElementById("es-pp-hobbies");
+    if (hobbiesEl && Array.isArray(prof.interests) && prof.interests.length) {
+      hobbiesEl.innerHTML = prof.interests.map((h) => `<span class="es-badge">${escapeHtml(h)}</span>`).join("");
+    }
 
     const avatarEl = document.getElementById("es-pp-avatar");
     if (avatarEl && prof.avatar_url) {
@@ -292,6 +330,34 @@ window.ExpoShare.whenReady(async function () {
           }
         </div>`;
       listEl.appendChild(card);
+    });
+  }
+
+  async function renderOwnBookmarks(sb, userId) {
+    const gridEl = document.getElementById("es-profile-bookmarks");
+    if (!gridEl) return;
+    const { data, error } = await sb
+      .from("bookmarks")
+      .select("presentation:presentations(id, title, field_id, format, cover_path)")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+    if (error || !data || !data.length) {
+      gridEl.innerHTML = `<div class="es-empty"><div class="es-empty__mascot">🦑</div><p data-i18n="profile.no_bookmarks"></p></div>`;
+      window.i18n.apply(gridEl);
+      return;
+    }
+    gridEl.innerHTML = "";
+    data.forEach((b) => {
+      const p = b.presentation;
+      if (!p) return;
+      const cover = p.cover_path
+        ? sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.covers).getPublicUrl(p.cover_path).data.publicUrl
+        : window.ExpoShare.generateFallbackCover({ title: p.title, field: p.field_id, format: p.format });
+      const a = document.createElement("a");
+      a.href = `presentation.html?id=${p.id}`;
+      a.className = "es-card";
+      a.innerHTML = `<div class="es-card__cover"><img src="${cover}" alt="${escapeHtml(p.title)}" loading="lazy"/></div><div class="es-card__body"><div class="es-card__title">${escapeHtml(p.title)}</div></div>`;
+      gridEl.appendChild(a);
     });
   }
 

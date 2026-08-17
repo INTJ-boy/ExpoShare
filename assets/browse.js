@@ -118,13 +118,18 @@ window.ExpoShare.whenReady(async function () {
     }
     emptyState.classList.add("es-hidden");
     rows.forEach((row) => {
-      const authorLabel = row.is_anonymous
-        ? window.i18n.t("presentation.anonymous")
-        : window.i18n.t("presentation.by", { author: (row.owner && (row.owner.display_name || row.owner.username)) || "" });
+      const authorHtml = row.is_anonymous
+        ? escapeHtml(window.i18n.t("presentation.anonymous"))
+        : row.owner && row.owner.username
+        ? `<a href="public-profile.html?username=${encodeURIComponent(row.owner.username)}" class="es-author-link" data-nav-stop>${escapeHtml(window.i18n.t("presentation.by", { author: row.owner.display_name || row.owner.username }))}</a>`
+        : escapeHtml(window.i18n.t("presentation.by", { author: "" }));
 
-      const card = document.createElement("a");
-      card.href = `presentation.html?id=${row.id}`;
+      // A <div> (not <a>) because the author name inside needs to be
+      // its own real link -- an <a> can't contain another <a>. Clicking
+      // anywhere else on the card still navigates to the presentation.
+      const card = document.createElement("div");
       card.className = "es-card";
+      card.style.cursor = "pointer";
       card.innerHTML = `
         <div class="es-card__cover">
           <img src="${coverUrl(row)}" alt="${escapeHtml(row.title)}" loading="lazy" />
@@ -133,13 +138,17 @@ window.ExpoShare.whenReady(async function () {
           <div class="es-card__eyebrow">${escapeHtml(fieldLabel(row.field_id))} · ${escapeHtml(disciplineLabel(row.field_id, row.discipline_id))}</div>
           <h3 class="es-card__title">${escapeHtml(row.title)}</h3>
           <div class="es-card__meta">
-            <span>${escapeHtml(authorLabel)}</span>
+            <span>${authorHtml}</span>
             <span>·</span>
             <span>${(row.format || "").toUpperCase()}</span>
             <span>·</span>
             <span>${row.language ? row.language.toUpperCase() : ""}</span>
           </div>
         </div>`;
+      card.addEventListener("click", (e) => {
+        if (e.target.closest("[data-nav-stop]")) return;
+        window.location.href = `presentation.html?id=${row.id}`;
+      });
       grid.appendChild(card);
     });
   }
