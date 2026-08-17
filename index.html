@@ -206,6 +206,10 @@
       const { count } = await sb.from("presentations").select("*", { count: "exact", head: true }).eq("status", "approved");
       document.getElementById("es-stat-presentations").textContent = count ?? "0";
     } catch (e) { /* not configured yet */ }
+    try {
+      const { data: contributorCount } = await sb.rpc("get_contributor_count");
+      document.getElementById("es-stat-contributors").textContent = contributorCount ?? "0";
+    } catch (e) { /* not configured yet */ }
     const taxonomy = await window.ExpoShare.loadTaxonomy();
     document.getElementById("es-stat-fields").textContent = taxonomy.fields.length;
     document.getElementById("es-stat-disciplines").textContent = taxonomy.fields.reduce((a, f) => a + f.disciplines.length, 0);
