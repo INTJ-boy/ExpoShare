@@ -161,7 +161,18 @@
     "tags": "Tags",
     "related_title": "Related presentations",
     "no_preview": "Live preview isn't available for this format. Download the file to view it.",
-    "download_file": "Download file"
+    "download_file": "Download file",
+    "views": "{count} views",
+    "downloads": "{count} downloads",
+    "bookmark_add": "Save",
+    "bookmark_remove": "Saved",
+    "bookmark_added": "Saved to your bookmarks.",
+    "bookmark_removed": "Removed from your bookmarks.",
+    "sign_in_to_bookmark": "Sign in to save this presentation.",
+    "share": "Share",
+    "link_copied": "Link copied.",
+    "loading_preview": "Loading preview...",
+    "preview_unavailable_office": "Preview may take a moment to load, or your browser may block third-party viewers. Download the file if it doesn't appear."
   },
   "profile": {
     "title": "Profile",
@@ -170,6 +181,8 @@
     "bio": "Bio",
     "institution": "Institution",
     "interests": "Fields of interest",
+    "hobbies": "Hobbies",
+    "hobbies_hint": "Press Enter to add a hobby",
     "country": "Country",
     "website": "Website",
     "linkedin": "LinkedIn",
@@ -179,6 +192,8 @@
     "public_activity": "Public activity",
     "update_success": "Profile updated.",
     "no_presentations": "This user hasn't published any presentations yet.",
+    "bookmarks_title": "Bookmarks",
+    "no_bookmarks": "You haven't bookmarked any presentations yet.",
     "average_rating": "Contributor rating",
     "rating_count_one": "{count} rating",
     "rating_count_other": "{count} ratings",
@@ -327,7 +342,9 @@
     "contact": "Contact",
     "connect": "Connect",
     "rights": "All rights reserved.",
-    "credit": "ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved."
+    "credit": "ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. All rights reserved.",
+    "other_websites_title": "Visit our other websites",
+    "coming_soon": "Coming soon"
   },
   "sections": {
     "introduction": "Introduction",

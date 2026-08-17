@@ -161,7 +161,18 @@
     "tags": "Étiquettes",
     "related_title": "Présentations similaires",
     "no_preview": "L'aperçu n'est pas disponible pour ce format. Téléchargez le fichier pour le consulter.",
-    "download_file": "Télécharger le fichier"
+    "download_file": "Télécharger le fichier",
+    "views": "{count} vues",
+    "downloads": "{count} téléchargements",
+    "bookmark_add": "Enregistrer",
+    "bookmark_remove": "Enregistré",
+    "bookmark_added": "Ajouté à vos favoris.",
+    "bookmark_removed": "Retiré de vos favoris.",
+    "sign_in_to_bookmark": "Connectez-vous pour enregistrer cette présentation.",
+    "share": "Partager",
+    "link_copied": "Lien copié.",
+    "loading_preview": "Chargement de l'aperçu...",
+    "preview_unavailable_office": "L'aperçu peut prendre un moment à charger, ou votre navigateur peut bloquer les visionneuses tierces. Téléchargez le fichier s'il n'apparaît pas."
   },
   "profile": {
     "title": "Profil",
@@ -170,6 +181,8 @@
     "bio": "Biographie",
     "institution": "Établissement",
     "interests": "Domaines d'intérêt",
+    "hobbies": "Loisirs",
+    "hobbies_hint": "Appuyez sur Entrée pour ajouter un loisir",
     "country": "Pays",
     "website": "Site web",
     "linkedin": "LinkedIn",
@@ -179,6 +192,8 @@
     "public_activity": "Activité publique",
     "update_success": "Profil mis à jour.",
     "no_presentations": "Cet utilisateur n'a encore publié aucune présentation.",
+    "bookmarks_title": "Favoris",
+    "no_bookmarks": "Vous n'avez encore enregistré aucune présentation.",
     "average_rating": "Note du contributeur",
     "rating_count_one": "{count} note",
     "rating_count_other": "{count} notes",
@@ -327,7 +342,9 @@
     "contact": "Contact",
     "connect": "Se connecter",
     "rights": "Tous droits réservés.",
-    "credit": "ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. Tous droits réservés."
+    "credit": "ExpoShare © 2026 Zekraoui Rabah AllaaEddine 🦑. Tous droits réservés.",
+    "other_websites_title": "Découvrez nos autres sites",
+    "coming_soon": "Bientôt disponible"
   },
   "sections": {
     "introduction": "Introduction",

@@ -161,7 +161,18 @@
     "tags": "الوسوم",
     "related_title": "عروض تقديمية ذات صلة",
     "no_preview": "المعاينة المباشرة غير متاحة لهذه الصيغة. نزّل الملف لعرضه.",
-    "download_file": "تنزيل الملف"
+    "download_file": "تنزيل الملف",
+    "views": "{count} مشاهدة",
+    "downloads": "{count} تنزيل",
+    "bookmark_add": "حفظ",
+    "bookmark_remove": "محفوظ",
+    "bookmark_added": "تمت الإضافة إلى المحفوظات.",
+    "bookmark_removed": "تمت الإزالة من المحفوظات.",
+    "sign_in_to_bookmark": "سجّل الدخول لحفظ هذا العرض التقديمي.",
+    "share": "مشاركة",
+    "link_copied": "تم نسخ الرابط.",
+    "loading_preview": "جارٍ تحميل المعاينة...",
+    "preview_unavailable_office": "قد تستغرق المعاينة لحظة للتحميل، أو قد يمنع متصفحك عارضات الطرف الثالث. نزّل الملف إذا لم تظهر."
   },
   "profile": {
     "title": "الملف الشخصي",
@@ -170,6 +181,8 @@
     "bio": "نبذة",
     "institution": "المؤسسة",
     "interests": "مجالات الاهتمام",
+    "hobbies": "الهوايات",
+    "hobbies_hint": "اضغط Enter لإضافة هواية",
     "country": "البلد",
     "website": "الموقع الإلكتروني",
     "linkedin": "لينكدإن",
@@ -179,6 +192,8 @@
     "public_activity": "النشاط العام",
     "update_success": "تم تحديث الملف الشخصي.",
     "no_presentations": "لم ينشر هذا المستخدم أي عروض تقديمية بعد.",
+    "bookmarks_title": "المحفوظات",
+    "no_bookmarks": "لم تحفظ أي عروض تقديمية بعد.",
     "average_rating": "تقييم المساهم",
     "rating_count_one": "تقييم واحد",
     "rating_count_other": "{count} تقييمات",
@@ -327,7 +342,9 @@
     "contact": "اتصل بنا",
     "connect": "تواصل معنا",
     "rights": "جميع الحقوق محفوظة.",
-    "credit": "إكسبوشير © 2026 Zekraoui Rabah AllaaEddine 🦑. جميع الحقوق محفوظة."
+    "credit": "إكسبوشير © 2026 Zekraoui Rabah AllaaEddine 🦑. جميع الحقوق محفوظة.",
+    "other_websites_title": "زُر مواقعنا الأخرى",
+    "coming_soon": "قريبًا"
   },
   "sections": {
     "introduction": "مقدمة",
