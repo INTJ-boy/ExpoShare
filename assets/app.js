@@ -433,7 +433,7 @@ window.ExpoShare = (function () {
    * real clickable link, no other code changes needed.
    */
   const OTHER_WEBSITES = [
-    { name: "Website 1", url: "" },
+    { name: "Labprepdz", url: "https://intj-boy.github.io/LabPrepDz/" },
     { name: "Website 2", url: "" },
     { name: "Website 3", url: "" },
     { name: "Website 4", url: "" },
