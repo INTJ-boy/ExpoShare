@@ -35,5 +35,7 @@ presentations, built with vanilla HTML/CSS/JS.
 │   ├── socials.json
 │   └── i18n/{en,fr,ar}.json
 └── supabase/
-    └── migrations/000(1-6)_init.sql
+    └── migrations/000(1-7)_init.sql
+    |___functions----send-emails
+                  ---translate-bio
 
