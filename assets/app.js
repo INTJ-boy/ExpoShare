@@ -434,9 +434,9 @@ window.ExpoShare = (function () {
    */
   const OTHER_WEBSITES = [
     { name: "Labprepdz", url: "https://intj-boy.github.io/LabPrepDz/" },
-    { name: "Website 2", url: "" },
-    { name: "Website 3", url: "" },
-    { name: "Website 4", url: "" },
+    { name: "MicroLabPro", url: "https://intj-boy.github.io/MicroLabPro/" },
+    { name: "MicroOdyssey", url: "https://intj-boy.github.io/MicroOdyssey/" },
+    { name: "MicroVerse", url: "https://intj-boy.github.io/MicroVerse/" },
     { name: "Website 5", url: "" },
     { name: "Website 6", url: "" },
     { name: "Website 7", url: "" }
