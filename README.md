@@ -41,10 +41,10 @@ presentations, built with vanilla HTML/CSS/JS.
 
 
 
-License / Contact:
-Free to use, always.This project earns nothing and always will remain free. Questions or feedback: reach out on LinkedIn or Telegram, or see the Support section in the app for voluntary contributions.
+## License / Contact
 
-© 2026 Zekraoui Rabah Allaa Eddine🦑.
+Free to use. Questions or feedback: use the in-app contact form, or reach out on [LinkedIn](https://www.linkedin.com/in/zekraouirabahallaaeddine).
+
+© 2026 Zekraoui Rabah Allaa Eddine🦑. 
 All Rights Reserved.
 Unauthorized copying, reproduction, modification, redistribution, or commercial use of this project or its source code is prohibited. For permission, licensing, or other inquiries, contact the copyright holder.
-
