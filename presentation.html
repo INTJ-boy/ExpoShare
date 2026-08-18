@@ -78,6 +78,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.min.js"></script>
 <script src="assets/config.js"></script>
 <script src="assets/i18n.js"></script>
 <script src="assets/app.js"></script>
@@ -90,6 +91,10 @@
   window.ExpoShare.markReady();
   window.ExpoShare.initMobileNav();
   window.ExpoShare.runLoadingSequence();
+
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.worker.min.js";
+  }
 
   const root = document.getElementById("es-pres-root");
   const params = new URLSearchParams(window.location.search);
@@ -237,12 +242,13 @@
           return;
         }
         if (row.format === "pdf") {
-          wrap.innerHTML = `<iframe src="${data.signedUrl}" class="es-preview__frame" title="${escapeHtml(row.title)}"></iframe>`;
+          renderPdfCanvas(wrap, data.signedUrl, row.title);
         } else {
-          // PPT/PPTX: no native browser renderer exists, so this embeds
-          // Google's public document viewer pointed at our short-lived
-          // signed URL. It's a genuine live preview, not a fake one --
-          // but it depends on a third-party service and can be slow or
+          // PPT/PPTX: no reliable pure-JS renderer exists (unlike PDF,
+          // there's no equivalent to PDF.js), so this embeds Google's
+          // public document viewer pointed at our short-lived signed
+          // URL. It's a genuine live preview, not a fake one -- but it
+          // depends on a third-party service and can be slow or
           // blocked by some browsers, hence the hint below it.
           const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(data.signedUrl)}&embedded=true`;
           wrap.innerHTML = `
@@ -250,6 +256,90 @@
             <p class="es-field__hint" style="margin-top:10px;">${window.i18n.t("presentation.preview_unavailable_office")}</p>
           `;
         }
+      });
+  }
+
+  /**
+   * Renders a PDF page-by-page onto a <canvas> using PDF.js instead of
+   * an <iframe src="...pdf">. Embedding PDFs via iframe is well-known
+   * to be unreliable specifically on Chrome for Android/mobile
+   * WebViews -- it commonly shows a blank or solid-black frame instead
+   * of the document, because it depends on the browser's own internal
+   * PDF plugin rather than anything the page controls. Rendering with
+   * our own canvas sidesteps that entirely, since nothing depends on
+   * the browser having (or correctly running) a built-in PDF viewer.
+   */
+  function renderPdfCanvas(wrap, url, title) {
+    if (!window.pdfjsLib) {
+      wrap.innerHTML = `<p class="es-field__hint" data-i18n="presentation.no_preview">${window.i18n.t("presentation.no_preview")}</p>`;
+      return;
+    }
+
+    wrap.innerHTML = `
+      <div class="es-pdf-viewer">
+        <div class="es-pdf-viewer__canvas-wrap">
+          <canvas id="es-pdf-canvas" aria-label="${escapeHtml(title)}"></canvas>
+        </div>
+        <div class="es-pdf-viewer__controls">
+          <button type="button" class="es-btn es-btn--ghost es-btn--sm" id="es-pdf-prev">‹</button>
+          <span class="es-pdf-viewer__page-indicator" id="es-pdf-indicator">-</span>
+          <button type="button" class="es-btn es-btn--ghost es-btn--sm" id="es-pdf-next">›</button>
+        </div>
+      </div>
+    `;
+
+    const canvas = document.getElementById("es-pdf-canvas");
+    const ctx = canvas.getContext("2d");
+    const indicator = document.getElementById("es-pdf-indicator");
+    const prevBtn = document.getElementById("es-pdf-prev");
+    const nextBtn = document.getElementById("es-pdf-next");
+
+    let pdfDoc = null;
+    let currentPage = 1;
+    let rendering = false;
+
+    function renderPage(num) {
+      if (!pdfDoc || rendering) return;
+      rendering = true;
+      pdfDoc.getPage(num).then((page) => {
+        const containerWidth = canvas.parentElement.clientWidth || 640;
+        const unscaledViewport = page.getViewport({ scale: 1 });
+        const scale = (containerWidth / unscaledViewport.width) * (window.devicePixelRatio || 1);
+        const viewport = page.getViewport({ scale });
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.style.width = "100%";
+        canvas.style.height = "auto";
+        page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+          rendering = false;
+          indicator.textContent = `${num} / ${pdfDoc.numPages}`;
+          prevBtn.disabled = num <= 1;
+          nextBtn.disabled = num >= pdfDoc.numPages;
+        });
+      });
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        renderPage(currentPage);
+      }
+    });
+    nextBtn.addEventListener("click", () => {
+      if (pdfDoc && currentPage < pdfDoc.numPages) {
+        currentPage += 1;
+        renderPage(currentPage);
+      }
+    });
+
+    window.pdfjsLib
+      .getDocument(url)
+      .promise.then((pdf) => {
+        pdfDoc = pdf;
+        renderPage(1);
+      })
+      .catch(() => {
+        wrap.innerHTML = `<p class="es-field__hint" data-i18n="presentation.no_preview">${window.i18n.t("presentation.no_preview")}</p>`;
       });
   }
 
