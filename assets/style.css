@@ -511,6 +511,24 @@ img { max-width: 100%; display: block; }
   .es-preview__frame { height: 420px; }
 }
 
+.es-pdf-viewer {
+  border: 1px solid var(--candy-08);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--onyx-2);
+}
+.es-pdf-viewer__canvas-wrap {
+  max-height: 640px; overflow-y: auto;
+  display: flex; justify-content: center;
+  padding: 12px;
+}
+.es-pdf-viewer__canvas-wrap canvas { border-radius: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.es-pdf-viewer__controls {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 12px; border-top: 1px solid var(--candy-08);
+}
+.es-pdf-viewer__page-indicator { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary); min-width: 60px; text-align: center; }
+
 .es-badge {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 3px 10px;

@@ -433,10 +433,10 @@ window.ExpoShare = (function () {
    * real clickable link, no other code changes needed.
    */
   const OTHER_WEBSITES = [
-    { name: "Labprepdz", url: "https://intj-boy.github.io/LabPrepDz/" },
     { name: "MicroLabPro", url: "https://intj-boy.github.io/MicroLabPro/" },
     { name: "MicroOdyssey", url: "https://intj-boy.github.io/MicroOdyssey/" },
     { name: "MicroVerse", url: "https://intj-boy.github.io/MicroVerse/" },
+    { name: "LabPrepDz", url: "https://intj-boy.github.io/LabPrepDz/" },
     { name: "Website 5", url: "" },
     { name: "Website 6", url: "" },
     { name: "Website 7", url: "" }

@@ -90,6 +90,26 @@ window.ExpoShare.whenReady(async function () {
           const el = document.getElementById(`es-profile-${f}`);
           if (el) updates[f] = el.value.trim() || null;
         });
+
+        // Auto-translate the bio into the site's other two languages
+        // whenever it's set. Best-effort: if the translation service
+        // is unavailable or rate-limited, the profile still saves
+        // normally, just without an updated bio_i18n cache.
+        if (updates.bio) {
+          try {
+            const { data: translated, error: fnError } = await sb.functions.invoke("translate-bio", {
+              body: { text: updates.bio, source_lang: updates.preferred_language || "en" }
+            });
+            if (!fnError && translated && !translated.error) {
+              updates.bio_i18n = translated;
+            }
+          } catch (e) {
+            /* translation service unavailable; save proceeds without it */
+          }
+        } else {
+          updates.bio_i18n = null;
+        }
+
         const { error } = await sb.from("profiles").update(updates).eq("id", user.id);
         if (error) throw error;
         window.ExpoShare.toast(window.i18n.t("profile.update_success"), { type: "success" });
@@ -113,7 +133,7 @@ window.ExpoShare.whenReady(async function () {
     if (!username) return;
     const { data: prof, error } = await sb
       .from("profiles")
-      .select("id, username, display_name, bio, institution, avatar_url, country, website, linkedin, interests")
+      .select("id, username, display_name, bio, bio_i18n, institution, avatar_url, country, website, linkedin, interests")
       .eq("username", username)
       .single();
     if (error || !prof) {
@@ -128,7 +148,15 @@ window.ExpoShare.whenReady(async function () {
     const twTitleEl = document.querySelector('meta[name="twitter:title"]');
     if (ogTitleEl) ogTitleEl.setAttribute("content", `${publicName} | ExpoShare`);
     if (twTitleEl) twTitleEl.setAttribute("content", `${publicName} | ExpoShare`);
-    document.getElementById("es-pp-bio").textContent = prof.bio || "";
+    function renderBio() {
+      const bioEl = document.getElementById("es-pp-bio");
+      if (!bioEl) return;
+      const lang = window.i18n.currentLang();
+      const translated = prof.bio_i18n && prof.bio_i18n[lang];
+      bioEl.textContent = translated || prof.bio || "";
+    }
+    renderBio();
+    window.i18n.onChange(renderBio);
 
     const institutionParts = [prof.institution, prof.country].filter(Boolean).join(" · ");
     document.getElementById("es-pp-institution").textContent = institutionParts;
