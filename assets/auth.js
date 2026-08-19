@@ -93,7 +93,72 @@ window.ExpoShareAuth = (function () {
       wireHeader();
     });
     wireHeader();
+    initInactivityTimeout();
     return currentUser;
+  }
+
+  /* --------------------------------------------------------- Inactivity logout */
+
+  const INACTIVITY_LIMIT_MS = 45 * 60 * 1000; // 45 minutes
+  const ACTIVITY_KEY = "exposhare_last_activity";
+  let activityThrottle = null;
+
+  function recordActivity() {
+    try {
+      localStorage.setItem(ACTIVITY_KEY, String(Date.now()));
+    } catch (e) {
+      /* localStorage unavailable (private browsing, etc.); inactivity tracking just won't persist across reloads */
+    }
+  }
+
+  function getLastActivity() {
+    try {
+      const v = localStorage.getItem(ACTIVITY_KEY);
+      return v ? parseInt(v, 10) : Date.now();
+    } catch (e) {
+      return Date.now();
+    }
+  }
+
+  async function checkInactivity() {
+    if (!isLoggedIn()) return;
+    if (Date.now() - getLastActivity() > INACTIVITY_LIMIT_MS) {
+      await signOut();
+      window.ExpoShare &&
+        window.ExpoShare.toast &&
+        window.ExpoShare.toast(window.i18n ? window.i18n.t("auth.session_expired") : "Your session has expired. Please log in again.", { type: "info" });
+    }
+  }
+
+  /**
+   * Persistent (localStorage, not sessionStorage) so this correctly
+   * catches the "closed the tab two days ago, still logged in" case:
+   * on the next visit, the stored timestamp is from two days ago,
+   * checkInactivity() sees that gap immediately on load and signs the
+   * person out right away, before recording any new activity.
+   */
+  function initInactivityTimeout() {
+    if (window.__esInactivityInit) return;
+    window.__esInactivityInit = true;
+
+    checkInactivity();
+    recordActivity();
+
+    ["click", "keydown", "scroll", "touchstart", "mousemove"].forEach((evt) => {
+      document.addEventListener(
+        evt,
+        () => {
+          if (activityThrottle) return;
+          activityThrottle = setTimeout(() => {
+            activityThrottle = null;
+          }, 5000);
+          recordActivity();
+        },
+        { passive: true }
+      );
+    });
+
+    setInterval(checkInactivity, 60 * 1000);
   }
 
   function isLoggedIn() {
