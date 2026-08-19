@@ -193,16 +193,34 @@
   loadRelated(row);
 
   document.getElementById("es-pres-download").addEventListener("click", async () => {
+    // Opening the blank tab HERE, before any await, is deliberate: on
+    // mobile Chrome, calling window.open() after an await breaks the
+    // "trusted user gesture" requirement, and the browser silently
+    // hijacks the CURRENT tab instead of opening a new one -- which
+    // kills this function mid-execution before the signed URL even
+    // resolves, let alone before the download counter below runs. A
+    // tab opened synchronously, then redirected once the signed URL
+    // is ready, avoids that entirely and keeps this tab alive.
+    const newTab = window.open("", "_blank", "noopener");
     try {
       const { data, error } = await sb.storage.from(window.EXPOSHARE_CONFIG.BUCKETS.presentations).createSignedUrl(row.file_path, 60);
       if (error) throw error;
-      window.open(data.signedUrl, "_blank", "noopener");
-      sb.rpc("increment_download_count", { presentation_id: row.id }).then(() => {
+      if (newTab) {
+        newTab.location.href = data.signedUrl;
+      } else {
+        // Popup blocked even for the synchronous blank open (rare, but
+        // some browsers block all popups regardless) -- fall back to
+        // navigating in place so the download still happens.
+        window.location.href = data.signedUrl;
+      }
+      const { error: rpcError } = await sb.rpc("increment_download_count", { presentation_id: row.id });
+      if (!rpcError) {
         const el = document.getElementById("es-pres-downloads");
-        if (el) el.textContent = window.i18n.t("presentation.downloads", { count: (row.download_count || 0) + 1 });
         row.download_count = (row.download_count || 0) + 1;
-      });
+        if (el) el.textContent = window.i18n.t("presentation.downloads", { count: row.download_count });
+      }
     } catch (err) {
+      if (newTab) newTab.close();
       window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
     }
   });
