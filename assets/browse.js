@@ -239,13 +239,22 @@ window.ExpoShare.whenReady(async function () {
     }
   });
 
-  taxonomy = await window.ExpoShare.loadTaxonomy();
-  populateFieldOptions();
-  populateDisciplineOptions();
-  window.i18n.onChange(() => {
+  // Same defensive pattern as presentation.html: without this, a failed
+  // taxonomy.json fetch (dropped mobile connection, etc.) would throw
+  // an uncaught exception here, silently leaving the filters and grid
+  // stuck on their loading skeletons with no visible error.
+  try {
+    taxonomy = await window.ExpoShare.loadTaxonomy();
     populateFieldOptions();
     populateDisciplineOptions();
-    runQuery();
-  });
+    window.i18n.onChange(() => {
+      populateFieldOptions();
+      populateDisciplineOptions();
+      runQuery();
+    });
+  } catch (err) {
+    console.error(err);
+    window.ExpoShare.toast(window.i18n.t("errors.generic"), { type: "error" });
+  }
   runQuery();
 });
