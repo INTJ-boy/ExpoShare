@@ -233,7 +233,8 @@
     "category_other": "أخرى",
     "explanation": "تفاصيل إضافية (اختياري)",
     "submit_success": "شكرًا، تم إرسال بلاغك.",
-    "reporter_hidden": "تبقى هوية المُبلِّغ سرية."
+    "reporter_hidden": "تبقى هوية المُبلِّغ سرية.",
+    "sign_in_to_report": "سجّل الدخول لإرسال هذا البلاغ."
   },
   "admin": {
     "title": "لوحة الإدارة",

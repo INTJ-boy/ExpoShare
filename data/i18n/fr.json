@@ -233,7 +233,8 @@
     "category_other": "Autre",
     "explanation": "Détails supplémentaires (facultatif)",
     "submit_success": "Merci, votre signalement a été envoyé.",
-    "reporter_hidden": "L'identité du signaleur reste confidentielle."
+    "reporter_hidden": "L'identité du signaleur reste confidentielle.",
+    "sign_in_to_report": "Connectez-vous pour envoyer ce signalement."
   },
   "admin": {
     "title": "Panneau d'administration",

@@ -233,7 +233,8 @@
     "category_other": "Other",
     "explanation": "Additional details (optional)",
     "submit_success": "Thanks, your report was submitted.",
-    "reporter_hidden": "Reporter identity is kept private."
+    "reporter_hidden": "Reporter identity is kept private.",
+    "sign_in_to_report": "Sign in to submit this report."
   },
   "admin": {
     "title": "Admin panel",
