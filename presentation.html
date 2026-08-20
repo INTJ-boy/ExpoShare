@@ -105,6 +105,32 @@
     return;
   }
 
+  /**
+   * Everything below can fail for reasons that have nothing to do with
+   * a bug (a dropped mobile connection, a slow network, a transient
+   * Supabase hiccup). Without this try/catch, any such failure was an
+   * UNCAUGHT exception -- silently swallowed by the browser, leaving
+   * the page stuck on its loading skeleton forever with no visible
+   * error. Since that skeleton uses very dark gray tones against an
+   * almost-black background, a page stuck there looks exactly like a
+   * solid black screen in a screenshot. This ensures a failure always
+   * becomes a visible, actionable error state instead.
+   */
+  try {
+    await renderPresentation();
+  } catch (err) {
+    console.error(err);
+    root.innerHTML = `
+      <div class="es-empty">
+        <div class="es-empty__mascot">🦑</div>
+        <p>${window.i18n.t("errors.generic")}</p>
+        <button type="button" class="es-btn es-btn--ghost es-btn--sm" id="es-pres-retry">${window.i18n.t("buttons.retry")}</button>
+      </div>`;
+    const retryBtn = document.getElementById("es-pres-retry");
+    if (retryBtn) retryBtn.addEventListener("click", () => window.location.reload());
+  }
+
+  async function renderPresentation() {
   const taxonomy = await window.ExpoShare.loadTaxonomy();
   function label(list, id) {
     const item = list.find((x) => x.id === id);
@@ -186,6 +212,13 @@
     <div class="es-section__head" style="margin-top:48px;"><h2 data-i18n="presentation.related_title">Related presentations</h2></div>
     <div class="es-grid" id="es-pres-related"></div>
   `;
+
+  // Content injected via innerHTML after the page's initial load isn't
+  // automatically translated -- i18n.init() only processes the DOM
+  // that existed when it ran. This is what left "Related presentations"
+  // in English even in French/Arabic mode: it has a data-i18n attribute,
+  // but nothing ever told the translator to look at it.
+  window.i18n.apply(root);
 
   renderPreview(row);
   incrementViewCount(row.id);
@@ -396,7 +429,7 @@
       const current = window.ExpoShareAuth.user();
       if (!current) {
         window.ExpoShare.toast(window.i18n.t("presentation.sign_in_to_bookmark"), { type: "info" });
-        window.location.href = "login.html";
+        setTimeout(() => (window.location.href = "login.html"), 900);
         return;
       }
       try {
@@ -474,7 +507,8 @@
     });
     if (!confirmed) return;
     if (!window.ExpoShareAuth.isLoggedIn()) {
-      window.location.href = "login.html";
+      window.ExpoShare.toast(window.i18n.t("reports.sign_in_to_report"), { type: "info" });
+      setTimeout(() => (window.location.href = "login.html"), 900);
       return;
     }
     try {
@@ -490,6 +524,7 @@
       window.ExpoShare.toast(err.message || window.i18n.t("errors.generic"), { type: "error" });
     }
   });
+  } // end renderPresentation()
 })();
 </script>
 </body>
