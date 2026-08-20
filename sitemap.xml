@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ExpoShare sitemap.
 
-  Only static pages are listed here. Individual presentations
-  (presentation.html?id=...) and public profiles
-  (public-profile.html?username=...) are dynamic content stored in
-  Supabase, not files in this repo, so a static sitemap can't
-  enumerate them the way it can for a build-time site. If that
-  matters to you later, the usual fix is a small script or Supabase
-  Edge Function that queries approved presentations/profiles and
-  regenerates this file (or serves an XML response directly) on a
-  schedule. Not required for the site to work or be crawlable, just
-  something to know is out of scope for a plain static file.
-
-  admin.html, profile.html, update-password.html, and
-  forgot-password.html are intentionally excluded here to match
-  robots.txt, since they're private/utility pages with no reason to
-  appear in search results.
--->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://intj-boy.github.io/ExpoShare/index.html</loc>
